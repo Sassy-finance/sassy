@@ -194,7 +194,7 @@ function MyCards() {
             </CardCc>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Tooltip arrow title="Click to add a new card">
+            <Tooltip arrow title="Click to add a new claim">
               <CardAddAction>
                 <CardActionArea sx={{ px: 1 }}>
                   <CardContent>

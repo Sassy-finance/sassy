@@ -85,13 +85,13 @@ function Wallets() {
           pb: 3
         }}
       >
-        <Typography variant="h3">Wallets</Typography>
+        <Typography variant="h3">Claims</Typography>
         <Button
           size="small"
           variant="outlined"
           startIcon={<AddTwoToneIcon fontSize="small" />}
         >
-          Add new wallet
+          Create Claim
         </Button>
       </Box>
       <Grid container spacing={3}>
@@ -198,7 +198,7 @@ function Wallets() {
           </Card>
         </Grid>
         <Grid xs={12} sm={6} md={3} item>
-          <Tooltip arrow title="Click to add a new wallet">
+          <Tooltip arrow title="Click to add a new claim">
             <CardAddAction>
               <CardActionArea
                 sx={{
