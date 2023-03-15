@@ -2,7 +2,7 @@ import { Model } from "sequelize";
 import { Table } from 'sequelize-typescript'
 
 export interface IClaim {
-  id: string,
+  id?: string,
   user: string,
   status: string,
   cid: string
@@ -19,9 +19,10 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
   Claim.init({
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true
     },
     user: DataTypes.STRING,
     status: DataTypes.STRING,

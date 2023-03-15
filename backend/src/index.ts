@@ -6,6 +6,8 @@ import compression from 'compression'
 import config from './config'
 import db from './models'
 
+import ClaimRouter from './routes/ClaimRouter'
+
 const app = express()
 
 app.use((_, res, next) => {
@@ -32,6 +34,7 @@ app.get('/', (_, res) => {
     )
 })
 
+app.use('/api/v1/claim', ClaimRouter)
 
 app.use((_, res) => {
     res.status(404).send()
