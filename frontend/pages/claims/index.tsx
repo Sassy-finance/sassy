@@ -14,10 +14,7 @@ function Claims() {
       <Head>
         <title>Crypto Dashboard</title>
       </Head>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginTop: '2rem' }}>
         <Grid
           container
           direction="row"

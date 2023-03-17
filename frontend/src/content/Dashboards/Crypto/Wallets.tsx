@@ -90,6 +90,7 @@ function Wallets() {
           size="small"
           variant="outlined"
           startIcon={<AddTwoToneIcon fontSize="small" />}
+          href="/claims/create"
         >
           Create Claim
         </Button>
