@@ -168,9 +168,9 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboards/crypto" passHref>
+                <NextLink href="/" passHref>
                   <Button
-                    className={currentRoute === '/dashboards/crypto' ? 'active' : ''}
+                    className={currentRoute === '/' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}

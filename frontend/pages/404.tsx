@@ -92,7 +92,7 @@ function Status404() {
                   />
                 </FormControl>
                 <Divider sx={{ my: 4 }}>OR</Divider>
-                <Button href="/dashboards/crypto" variant="outlined">
+                <Button href="/" variant="outlined">
                   Go back
                 </Button>
               </Card>
