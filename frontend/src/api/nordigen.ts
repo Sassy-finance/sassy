@@ -30,8 +30,6 @@ export const createToken = async (): Promise<string> => {
 export const createAgreement = async (
     accessToken: string,
     institutionId: string,
-    maxHistoricalDays: number,
-    accessValidForDays: number,
     accessScope: string[],
 ): Promise<string> => {
     try {
