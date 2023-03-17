@@ -114,57 +114,43 @@ function Cards({
 }: CardsProps) {
   const router = useRouter();
 
-  const DisplayCard = ({ id, name, symbol, logo, value, amount }) =>
+  const DisplayCardContent = ({ name, symbol, logo, value, amount }) => (
+    <CardContent>
+      <AvatarWrapper>
+        <img alt={name} src={logo} />
+      </AvatarWrapper>
+      <Typography variant="h5" noWrap>
+        {name}
+      </Typography>
+      <Typography variant="subtitle1" noWrap>
+        {symbol}
+      </Typography>
+      <Box sx={{ pt: 3 }}>
+        <Typography variant="h3" gutterBottom noWrap>
+          {value}
+        </Typography>
+        <Typography variant="subtitle2" noWrap>
+          {amount}
+        </Typography>
+      </Box>
+    </CardContent>
+  );
+
+  const DisplayCard = (cardProps: any) =>
     details ? (
       <StyledCard
         sx={{ px: 1 }}
         onClick={() => {
           if (details) {
-            router.push(`${detailsRedirectLink}/${id}`);
+            router.push(`${detailsRedirectLink}/${cardProps.id}`);
           }
         }}
       >
-        <CardContent>
-          <AvatarWrapper>
-            <img alt={name} src={logo} />
-          </AvatarWrapper>
-          <Typography variant="h5" noWrap>
-            {name}
-          </Typography>
-          <Typography variant="subtitle1" noWrap>
-            {symbol}
-          </Typography>
-          <Box sx={{ pt: 3 }}>
-            <Typography variant="h3" gutterBottom noWrap>
-              {value}
-            </Typography>
-            <Typography variant="subtitle2" noWrap>
-              {amount}
-            </Typography>
-          </Box>
-        </CardContent>
+        <DisplayCardContent {...cardProps} />
       </StyledCard>
     ) : (
       <Card sx={{ px: 1 }}>
-        <CardContent>
-          <AvatarWrapper>
-            <img alt={name} src={logo} />
-          </AvatarWrapper>
-          <Typography variant="h5" noWrap>
-            {name}
-          </Typography>
-          <Typography variant="subtitle1" noWrap>
-            {symbol}
-          </Typography>
-          <Box sx={{ pt: 3 }}>
-            <Typography variant="h3" gutterBottom noWrap>
-              {value}
-            </Typography>
-            <Typography variant="subtitle2" noWrap>
-              {amount}
-            </Typography>
-          </Box>
-        </CardContent>
+        <DisplayCardContent {...cardProps} />
       </Card>
     );
 
