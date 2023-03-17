@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+
 import {
   Button,
   Card,
@@ -101,45 +103,47 @@ const claimsData = [
   }
 ];
 
-const ClaimCard = ({ name, symbol, logo, value, amount }) => (
-  <Card sx={{ px: 1 }}>
-    <CardContent>
-      <AvatarWrapper>
-        <img alt={name} src={logo} />
-      </AvatarWrapper>
-      <Typography variant="h5" noWrap>
-        {name}
-      </Typography>
-      <Typography variant="subtitle1" noWrap>
-        {symbol}
-      </Typography>
-      <Box sx={{ pt: 3 }}>
-        <Typography variant="h3" gutterBottom noWrap>
-          {value}
-        </Typography>
-        <Typography variant="subtitle2" noWrap>
-          {amount}
-        </Typography>
-      </Box>
-    </CardContent>
-  </Card>
-);
-
-const AddClaimCard = () => (
-  <Tooltip arrow title="Click to add a new claim">
-    <CardAddAction>
-      <CardActionArea sx={{ px: 1 }}>
-        <CardContent>
-          <AvatarAddWrapper>
-            <AddTwoToneIcon fontSize="large" />
-          </AvatarAddWrapper>
-        </CardContent>
-      </CardActionArea>
-    </CardAddAction>
-  </Tooltip>
-);
-
 function Wallets() {
+  const router = useRouter();
+
+  const ClaimCard = ({ name, symbol, logo, value, amount }) => (
+    <Card sx={{ px: 1 }}>
+      <CardContent>
+        <AvatarWrapper>
+          <img alt={name} src={logo} />
+        </AvatarWrapper>
+        <Typography variant="h5" noWrap>
+          {name}
+        </Typography>
+        <Typography variant="subtitle1" noWrap>
+          {symbol}
+        </Typography>
+        <Box sx={{ pt: 3 }}>
+          <Typography variant="h3" gutterBottom noWrap>
+            {value}
+          </Typography>
+          <Typography variant="subtitle2" noWrap>
+            {amount}
+          </Typography>
+        </Box>
+      </CardContent>
+    </Card>
+  );
+  
+  const AddClaimCard = () => (
+    <Tooltip arrow title="Click to add a new claim">
+      <CardAddAction onClick={() => router.push('/claims/create')}>
+        <CardActionArea sx={{ px: 1 }}>
+          <CardContent>
+            <AvatarAddWrapper>
+              <AddTwoToneIcon fontSize="large" />
+            </AvatarAddWrapper>
+          </CardContent>
+        </CardActionArea>
+      </CardAddAction>
+    </Tooltip>
+  );
+
   return (
     <>
       <Box
@@ -161,9 +165,9 @@ function Wallets() {
         </Button>
       </Box>
       <Grid container spacing={3}>
-        {claimsData.map(({ id, ...asset }) => (
+        {claimsData.map(({ id, ...claimData }) => (
           <Grid key={id} xs={12} sm={6} md={3} item>
-            <ClaimCard {...asset} />
+            <ClaimCard {...claimData} />
           </Grid>
         ))}
         <Grid xs={12} sm={6} md={3} item>

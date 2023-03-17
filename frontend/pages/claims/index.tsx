@@ -3,8 +3,6 @@ import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
 import MyCards from '@/content/Management/Users/details/MyCards';
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 
 

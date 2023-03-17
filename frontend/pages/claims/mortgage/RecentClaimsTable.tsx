@@ -84,7 +84,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const RecentOffersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
+const RecentClaimsTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -355,12 +355,12 @@ const RecentOffersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   );
 };
 
-RecentOffersTable.propTypes = {
+RecentClaimsTable.propTypes = {
   cryptoOrders: PropTypes.array.isRequired
 };
 
-RecentOffersTable.defaultProps = {
+RecentClaimsTable.defaultProps = {
   cryptoOrders: []
 };
 
-export default RecentOffersTable;
+export default RecentClaimsTable;

@@ -42,7 +42,7 @@ function MyCards() {
   const router = useRouter();
 
   const cardsContent = [
-    { title: 'Mortgage', link: '/management/transactions' },
+    { title: 'Mortgage', link: '/claims/mortgage' },
     { title: 'Inheritance', link: '' },
     { title: 'Tenant history', link: '' }
   ];

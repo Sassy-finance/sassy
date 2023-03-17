@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import PageHeader from '@/content/Management/Transactions/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
@@ -10,9 +9,6 @@ import RecentOrders from '@/content/Management/Transactions/RecentOrders';
 function ApplicationsTransactions() {
   return (
     <>
-      <Head>
-        <title>Transactions - Applications</title>
-      </Head>
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
