@@ -1,0 +1,6 @@
+export const NORDIGEN_ENDPOINT_TOKEN = 'https://ob.nordigen.com/api/v2/token/new/'
+export const NORDIGEN_ENDPOINT_AGREEMENT = 'https://ob.nordigen.com/api/v2/agreements/enduser/'
+export const NORDIGEN_ENDPOINT_LINK = 'https://ob.nordigen.com/api/v2/requisitions/'
+export const NORDIGEN_SECRET_ID = process.env.NEXT_PUBLIC_NORDIGEN_SECRET_ID || ''
+export const NORDIGEN_SECRET_KEY = process.env.NEXT_PUBLIC_NORDIGEN_SECRET_KEY || ''
+export const IPFS_KEY = process.env.NEXT_PUBLIC_IPFS_KEY || ''

@@ -2,29 +2,34 @@ import { Model } from "sequelize";
 import { Table } from 'sequelize-typescript'
 import config from "../config";
 
-export interface IClaim {
+export interface IClaimOffer {
   id?: number,
   user: string,
   status: string,
-  cid: string
+  jobId: string,
+  imageId: string,
+  result: string,
+  claimId: number
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  @Table({ tableName: "claim" })
-  class Claim extends Model<IClaim> {
-    claimId: string;
+  @Table({ tableName: "claimOffer" })
+  class ClaimOffer extends Model<IClaimOffer> {
+    id: string;
     user: string;
     status: string;
-    cid: string
+    jobId: string;
+    imageId: string;
+    result: string
 
     static associate(models: any) {
-      Claim.hasMany(models.ClaimOffer,
+      ClaimOffer.belongsTo(models.Claim,
         { foreignKey: 'claimId' }
       )
     }
   }
 
-  Claim.init({
+  ClaimOffer.init({
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -33,17 +38,21 @@ module.exports = (sequelize: any, DataTypes: any) => {
     },
     user: DataTypes.STRING,
     status: DataTypes.STRING,
-    cid: DataTypes.STRING
+    jobId: DataTypes.STRING,
+    imageId: DataTypes.STRING,
+    result: DataTypes.STRING,
+    claimId: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Claim',
+    modelName: 'ClaimOffer',
     timestamps: false
   })
 
   if (config.createTables) {
-    Claim.sync({ force: true });
+    ClaimOffer.sync({ force: true });
   }
 
-  return Claim
+
+  return ClaimOffer
 
 }

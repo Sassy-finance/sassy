@@ -15,12 +15,15 @@ export const createClaim = async (claim: IClaim) => {
 }
 
 
-export const userClaims = async (user: string) => {
+export const userClaims = async (user: string) => { 
     try {
         const claims = await db.Claim.findAll({
             where: {
                 user: user
-            }
+            },
+            include: [
+                db.ClaimOffer
+            ]
         });
 
         return claims
