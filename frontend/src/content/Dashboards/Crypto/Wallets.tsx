@@ -74,7 +74,11 @@ const CardAddAction = styled(Card)(
 `
 );
 
-function Wallets() {
+interface WalletsProps {
+  navigateForward: (path: string) => void;
+}
+
+function Wallets({ navigateForward }: WalletsProps) {
   return (
     <>
       <Box

@@ -7,8 +7,15 @@ import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 
 import Wallets from '@/content/Dashboards/Crypto/Wallets';
+import { useState } from 'react';
 
 function DashboardCrypto() {
+  const [content, setContent] = useState<any>(1);
+
+  const navigateForward = (newContent: any) => {
+    setContent(newContent);
+  };
+
   return (
     <>
       <Head>
@@ -26,7 +33,7 @@ function DashboardCrypto() {
           spacing={4}
         >
           <Grid item lg={8} xs={12}>
-            <Wallets />
+            <Wallets navigateForward={navigateForward}/>
           </Grid>
         </Grid>
       </Container>

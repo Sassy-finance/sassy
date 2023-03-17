@@ -180,6 +180,19 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/claimoffers" passHref>
+                  <Button
+                    className={currentRoute === '="/claimoffers' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<DesignServicesTwoToneIcon />}
+                  >
+                    Overview
+                  </Button>
+                </NextLink>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>
