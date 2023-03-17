@@ -27,6 +27,22 @@ const claimsData = [
     logo: '/static/images/placeholders/logo/cardano.png',
     value: '$54,985.00',
     amount: '34,985 ADA'
+  },
+  {
+    id: 'xrp',
+    name: 'Ripple',
+    symbol: 'XRP',
+    logo: '/static/images/placeholders/logo/ripple.png',
+    value: '$586.83',
+    amount: '5,783 XRP'
+  },
+  {
+    id: 'ada',
+    name: 'Cardano',
+    symbol: 'ADA',
+    logo: '/static/images/placeholders/logo/cardano.png',
+    value: '$54,985.00',
+    amount: '34,985 ADA'
   }
 ];
 
@@ -42,7 +58,12 @@ function PersonalClaimOffers() {
           spacing={4}
         >
           <Grid item lg={8} xs={12}>
-            <Cards title="Personal claim offers" cardsData={claimsData} />
+            <Cards
+              title="Personal claim offers"
+              data={claimsData}
+              details
+              detailsRedirectLink={`/personal-offers`}
+            />
           </Grid>
         </Grid>
       </Container>

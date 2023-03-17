@@ -50,10 +50,11 @@ function DashboardCrypto() {
           <Grid item lg={8} xs={12}>
             <Cards 
               title="Claims"
-              cardsData={claimsData}
-              addNewCard
-              addTooltipMsg="Click to add a new claim"
-              addRedirectLink="/claims/create"
+              data={claimsData}
+              createOption
+              createBtnText='Create Claim'
+              createTooltipMsg="Click to add a new claim"
+              createRedirectLink="/claims/create"
             />
           </Grid>
         </Grid>
