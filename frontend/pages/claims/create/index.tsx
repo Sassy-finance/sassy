@@ -1,18 +1,14 @@
-import Head from 'next/head';
-
 import { Container, Grid } from '@mui/material';
 
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
 import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import Wallets from '@/content/Dashboards/Crypto/Wallets';
+import MyCards from '@/content/Management/Users/details/MyCards';
+import SidebarLayout from '@/layouts/SidebarLayout';
 
-function Hero() {
+function CreateClaims() {
   return (
     <>
-      <Head>
-        <title>Crypto Dashboard</title>
-      </Head>
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
@@ -24,8 +20,8 @@ function Hero() {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item lg={8} xs={12}>
-            <Wallets />
+          <Grid item lg={11} xs={12}>
+            <MyCards />
           </Grid>
         </Grid>
       </Container>
@@ -33,4 +29,6 @@ function Hero() {
   );
 }
 
-export default Hero;
+CreateClaims.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+
+export default CreateClaims;

@@ -76,37 +76,24 @@ const CardAddAction = styled(Card)(
 `
 );
 
-const claimsData = [
-  {
-    id: 'btc',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    logo: '/static/images/placeholders/logo/bitcoin.png',
-    value: '$3,586.22',
-    amount: '1.25843 BTC'
-  },
-  {
-    id: 'xrp',
-    name: 'Ripple',
-    symbol: 'XRP',
-    logo: '/static/images/placeholders/logo/ripple.png',
-    value: '$586.83',
-    amount: '5,783 XRP'
-  },
-  {
-    id: 'ada',
-    name: 'Cardano',
-    symbol: 'ADA',
-    logo: '/static/images/placeholders/logo/cardano.png',
-    value: '$54,985.00',
-    amount: '34,985 ADA'
-  }
-];
+interface CardsProps {
+  title: string;
+  cardsData: Array<any>;
+  addNewCard?: boolean;
+  addTooltipMsg?: string;
+  addRedirectLink?: string;
+}
 
-function Wallets() {
+function Cards({
+  title,
+  cardsData,
+  addNewCard,
+  addTooltipMsg,
+  addRedirectLink
+}: CardsProps) {
   const router = useRouter();
 
-  const ClaimCard = ({ name, symbol, logo, value, amount }) => (
+  const DisplayCard = ({ name, symbol, logo, value, amount }) => (
     <Card sx={{ px: 1 }}>
       <CardContent>
         <AvatarWrapper>
@@ -129,10 +116,10 @@ function Wallets() {
       </CardContent>
     </Card>
   );
-  
-  const AddClaimCard = () => (
-    <Tooltip arrow title="Click to add a new claim">
-      <CardAddAction onClick={() => router.push('/claims/create')}>
+
+  const AddCard = () => (
+    <Tooltip arrow title={addTooltipMsg}>
+      <CardAddAction onClick={() => router.push(addRedirectLink)}>
         <CardActionArea sx={{ px: 1 }}>
           <CardContent>
             <AvatarAddWrapper>
@@ -154,28 +141,32 @@ function Wallets() {
           pb: 3
         }}
       >
-        <Typography variant="h3">Claims</Typography>
-        <Button
-          size="small"
-          variant="outlined"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-          href="/claims/create"
-        >
-          Create Claim
-        </Button>
+        <Typography variant="h3">{title}</Typography>
+        {addNewCard && (
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<AddTwoToneIcon fontSize="small" />}
+            href="/claims/create"
+          >
+            Create Claim
+          </Button>
+        )}
       </Box>
       <Grid container spacing={3}>
-        {claimsData.map(({ id, ...claimData }) => (
+        {cardsData.map(({ id, ...displayData }) => (
           <Grid key={id} xs={12} sm={6} md={3} item>
-            <ClaimCard {...claimData} />
+            <DisplayCard {...displayData} />
           </Grid>
         ))}
-        <Grid xs={12} sm={6} md={3} item>
-          <AddClaimCard />
-        </Grid>
+        {addNewCard && (
+          <Grid xs={12} sm={6} md={3} item>
+            <AddCard />
+          </Grid>
+        )}
       </Grid>
     </>
   );
 }
 
-export default Wallets;
+export default Cards;

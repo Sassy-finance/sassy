@@ -92,8 +92,8 @@ function Status404() {
                   />
                 </FormControl>
                 <Divider sx={{ my: 4 }}>OR</Divider>
-                <Button href="/" variant="outlined">
-                  Go to homepage
+                <Button href="/dashboards/crypto" variant="outlined">
+                  Go back
                 </Button>
               </Card>
             </Container>

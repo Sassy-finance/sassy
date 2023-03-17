@@ -168,15 +168,28 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/" passHref>
+                <NextLink href="/dashboards/crypto" passHref>
                   <Button
-                    className={currentRoute === '="/' ? 'active' : ''}
+                    className={currentRoute === '/dashboards/crypto' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
                     Overview
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div">
+                <NextLink href="/personal-offers" passHref>
+                  <Button
+                    className={currentRoute === '/personal-offers' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<DesignServicesTwoToneIcon />}
+                  >
+                    Your claim offers
                   </Button>
                 </NextLink>
               </ListItem>

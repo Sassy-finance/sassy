@@ -2,17 +2,16 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import PageHeader from '@/content/Management/Transactions/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
-import Footer from '@/components/Footer';
 
-import RecentOrders from '@/content/Management/Transactions/RecentOrders';
+import RecentClaims from '@/content/claims/mortgage/RecentClaims';
 
-function ApplicationsTransactions() {
+function MortgageTransactions() {
   return (
     <>
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ marginBottom: '2rem' }}>
         <Grid
           container
           direction="row"
@@ -21,17 +20,16 @@ function ApplicationsTransactions() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentOrders />
+            <RecentClaims />
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 }
 
-ApplicationsTransactions.getLayout = (page) => (
+MortgageTransactions.getLayout = (page) => (
   <SidebarLayout>{page}</SidebarLayout>
 );
 
-export default ApplicationsTransactions;
+export default MortgageTransactions;
