@@ -168,9 +168,9 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/" passHref>
+                <NextLink href="/dashboards/crypto" passHref>
                   <Button
-                    className={currentRoute === '="/' ? 'active' : ''}
+                    className={currentRoute === '/dashboards/crypto' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
@@ -181,15 +181,15 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/claimoffers" passHref>
+                <NextLink href="/claims/offers" passHref>
                   <Button
-                    className={currentRoute === '="/claimoffers' ? 'active' : ''}
+                    className={currentRoute === '/claims/offers' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Overview
+                    Your claim offers
                   </Button>
                 </NextLink>
               </ListItem>

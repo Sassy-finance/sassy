@@ -2,13 +2,13 @@ import Head from 'next/head';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 
+import MyCards from '@/content/Management/Users/details/MyCards';
 import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 
-import Wallets from '@/content/Dashboards/Crypto/Wallets';
 
-function DashboardCrypto() {
+function Claims() {
   return (
     <>
       <Head>
@@ -26,7 +26,7 @@ function DashboardCrypto() {
           spacing={4}
         >
           <Grid item lg={8} xs={12}>
-            <Wallets />
+            <MyCards />
           </Grid>
         </Grid>
       </Container>
@@ -34,6 +34,6 @@ function DashboardCrypto() {
   );
 }
 
-DashboardCrypto.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+Claims.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
-export default DashboardCrypto;
+export default Claims;

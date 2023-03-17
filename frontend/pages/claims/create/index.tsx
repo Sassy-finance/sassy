@@ -1,14 +1,13 @@
 import Head from 'next/head';
 
-import SidebarLayout from '@/layouts/SidebarLayout';
-
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
 
-import Wallets from '@/content/Dashboards/Crypto/Wallets';
+import PageTitleWrapper from '@/components/PageTitleWrapper';
 
-function DashboardCrypto() {
+import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
+import MyCards from '@/content/Management/Users/details/MyCards';
+
+function CreateClaims() {
   return (
     <>
       <Head>
@@ -25,8 +24,8 @@ function DashboardCrypto() {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item lg={8} xs={12}>
-            <Wallets />
+          <Grid item lg={4} xs={12}>
+            <MyCards />
           </Grid>
         </Grid>
       </Container>
@@ -34,6 +33,4 @@ function DashboardCrypto() {
   );
 }
 
-DashboardCrypto.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
-
-export default DashboardCrypto;
+export default CreateClaims;
