@@ -1,5 +1,3 @@
-import Head from 'next/head';
-
 import { Container, Grid } from '@mui/material';
 
 import PageTitleWrapper from '@/components/PageTitleWrapper';
@@ -11,9 +9,6 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 function CreateClaims() {
   return (
     <>
-      <Head>
-        <title>Crypto Dashboard</title>
-      </Head>
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
@@ -25,7 +20,7 @@ function CreateClaims() {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item lg={10} xs={12}>
+          <Grid item lg={11} xs={12}>
             <MyCards />
           </Grid>
         </Grid>
