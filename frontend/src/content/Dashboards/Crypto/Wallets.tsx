@@ -74,6 +74,71 @@ const CardAddAction = styled(Card)(
 `
 );
 
+const claimsData = [
+  {
+    id: 'btc',
+    name: 'Bitcoin',
+    symbol: 'BTC',
+    logo: '/static/images/placeholders/logo/bitcoin.png',
+    value: '$3,586.22',
+    amount: '1.25843 BTC'
+  },
+  {
+    id: 'xrp',
+    name: 'Ripple',
+    symbol: 'XRP',
+    logo: '/static/images/placeholders/logo/ripple.png',
+    value: '$586.83',
+    amount: '5,783 XRP'
+  },
+  {
+    id: 'ada',
+    name: 'Cardano',
+    symbol: 'ADA',
+    logo: '/static/images/placeholders/logo/cardano.png',
+    value: '$54,985.00',
+    amount: '34,985 ADA'
+  }
+];
+
+const ClaimCard = ({ name, symbol, logo, value, amount }) => (
+  <Card sx={{ px: 1 }}>
+    <CardContent>
+      <AvatarWrapper>
+        <img alt={name} src={logo} />
+      </AvatarWrapper>
+      <Typography variant="h5" noWrap>
+        {name}
+      </Typography>
+      <Typography variant="subtitle1" noWrap>
+        {symbol}
+      </Typography>
+      <Box sx={{ pt: 3 }}>
+        <Typography variant="h3" gutterBottom noWrap>
+          {value}
+        </Typography>
+        <Typography variant="subtitle2" noWrap>
+          {amount}
+        </Typography>
+      </Box>
+    </CardContent>
+  </Card>
+);
+
+const AddClaimCard = () => (
+  <Tooltip arrow title="Click to add a new claim">
+    <CardAddAction>
+      <CardActionArea sx={{ px: 1 }}>
+        <CardContent>
+          <AvatarAddWrapper>
+            <AddTwoToneIcon fontSize="large" />
+          </AvatarAddWrapper>
+        </CardContent>
+      </CardActionArea>
+    </CardAddAction>
+  </Tooltip>
+);
+
 function Wallets() {
   return (
     <>
@@ -96,124 +161,13 @@ function Wallets() {
         </Button>
       </Box>
       <Grid container spacing={3}>
+        {claimsData.map(({ id, ...asset }) => (
+          <Grid key={id} xs={12} sm={6} md={3} item>
+            <ClaimCard {...asset} />
+          </Grid>
+        ))}
         <Grid xs={12} sm={6} md={3} item>
-          <Card
-            sx={{
-              px: 1
-            }}
-          >
-            <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="BTC"
-                  src="/static/images/placeholders/logo/bitcoin.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Bitcoin
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                BTC
-              </Typography>
-              <Box
-                sx={{
-                  pt: 3
-                }}
-              >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $3,586.22
-                </Typography>
-                <Typography variant="subtitle2" noWrap>
-                  1.25843 BTC
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3} item>
-          <Card
-            sx={{
-              px: 1
-            }}
-          >
-            <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="Ripple"
-                  src="/static/images/placeholders/logo/ripple.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Ripple
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                XRP
-              </Typography>
-              <Box
-                sx={{
-                  pt: 3
-                }}
-              >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $586.83
-                </Typography>
-                <Typography variant="subtitle2" noWrap>
-                  5,783 XRP
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3} item>
-          <Card
-            sx={{
-              px: 1
-            }}
-          >
-            <CardContent>
-              <AvatarWrapper>
-                <img
-                  alt="Cardano"
-                  src="/static/images/placeholders/logo/cardano.png"
-                />
-              </AvatarWrapper>
-              <Typography variant="h5" noWrap>
-                Cardano
-              </Typography>
-              <Typography variant="subtitle1" noWrap>
-                ADA
-              </Typography>
-              <Box
-                sx={{
-                  pt: 3
-                }}
-              >
-                <Typography variant="h3" gutterBottom noWrap>
-                  $54,985.00
-                </Typography>
-                <Typography variant="subtitle2" noWrap>
-                  34,985 ADA
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid xs={12} sm={6} md={3} item>
-          <Tooltip arrow title="Click to add a new claim">
-            <CardAddAction>
-              <CardActionArea
-                sx={{
-                  px: 1
-                }}
-              >
-                <CardContent>
-                  <AvatarAddWrapper>
-                    <AddTwoToneIcon fontSize="large" />
-                  </AvatarAddWrapper>
-                </CardContent>
-              </CardActionArea>
-            </CardAddAction>
-          </Tooltip>
+          <AddClaimCard />
         </Grid>
       </Grid>
     </>
