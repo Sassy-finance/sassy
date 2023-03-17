@@ -181,9 +181,9 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/claims/offers" passHref>
+                <NextLink href="/personal-offers" passHref>
                   <Button
-                    className={currentRoute === '/claims/offers' ? 'active' : ''}
+                    className={currentRoute === '/personal-offers' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}

@@ -1,10 +1,7 @@
+import Cards from '@/components/Cards';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
-import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Container, Grid } from '@mui/material';
-
-import Cards from '@/components/Cards';
 
 const claimsData = [
   {
@@ -33,13 +30,10 @@ const claimsData = [
   }
 ];
 
-function DashboardCrypto() {
+function PersonalClaimOffers() {
   return (
     <>
-      <PageTitleWrapper>
-        <PageHeader />
-      </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" style={{ margin: '2rem 0' }}>
         <Grid
           container
           direction="row"
@@ -48,13 +42,7 @@ function DashboardCrypto() {
           spacing={4}
         >
           <Grid item lg={8} xs={12}>
-            <Cards 
-              title="Claims"
-              cardsData={claimsData}
-              addNewCard
-              addTooltipMsg="Click to add a new claim"
-              addRedirectLink="/claims/create"
-            />
+            <Cards title="Personal claim offers" cardsData={claimsData} />
           </Grid>
         </Grid>
       </Container>
@@ -62,6 +50,6 @@ function DashboardCrypto() {
   );
 }
 
-DashboardCrypto.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
+PersonalClaimOffers.getLayout = (page) => <SidebarLayout>{page}</SidebarLayout>;
 
-export default DashboardCrypto;
+export default PersonalClaimOffers;
