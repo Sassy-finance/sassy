@@ -2,7 +2,7 @@ import { execSh } from "."
 
 export const runJob = async (cid: string, dockerImage: string) => {
     const result: any = await execSh(
-        `bacalhau docker run --id-only --wait --input-urls=${cid} ${dockerImage}`
+        `bacalhau docker run --id-only --wait --inputs ${cid} ${dockerImage}`
     ) as any
 
     return result.stdout.toString().trim()
