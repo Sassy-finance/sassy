@@ -1,82 +1,73 @@
 import {
-  Typography,
-  Box,
-  Card,
   Container,
-  Button,
-  styled
+  Grid,
 } from '@mui/material';
 import type { ReactElement } from 'react';
-import BaseLayout from 'src/layouts/BaseLayout';
 
-import Link from 'src/components/Link';
-import Head from 'next/head';
+import SidebarLayout from '@/layouts/SidebarLayout';
+import Cards from '@/components/Cards';
+import PageTitleWrapper from '@/components/PageTitleWrapper';
+import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
 
-import Logo from 'src/components/LogoSign';
-import Hero from 'src/content/Overview/Hero';
-
-const HeaderWrapper = styled(Card)(
-  ({ theme }) => `
-  width: 100%;
-  display: flex;
-  align-items: center;
-  height: ${theme.spacing(10)};
-  margin-bottom: ${theme.spacing(10)};
-`
-);
-
-const OverviewWrapper = styled(Box)(
-  ({ theme }) => `
-    overflow: auto;
-    background: ${theme.palette.common.white};
-    flex: 1;
-    overflow-x: hidden;
-`
-);
+const claimsData = [
+  {
+    id: 'btc',
+    name: 'Bitcoin',
+    symbol: 'BTC',
+    logo: '/static/images/placeholders/logo/bitcoin.png',
+    value: '$3,586.22',
+    amount: '1.25843 BTC'
+  },
+  {
+    id: 'xrp',
+    name: 'Ripple',
+    symbol: 'XRP',
+    logo: '/static/images/placeholders/logo/ripple.png',
+    value: '$586.83',
+    amount: '5,783 XRP'
+  },
+  {
+    id: 'ada',
+    name: 'Cardano',
+    symbol: 'ADA',
+    logo: '/static/images/placeholders/logo/cardano.png',
+    value: '$54,985.00',
+    amount: '34,985 ADA'
+  }
+];
 
 function Overview() {
   return (
-    <OverviewWrapper>
-      <Head>
-        <title>Tokyo Free White NextJS Typescript Admin Dashboard</title>
-      </Head>
-      <HeaderWrapper>
-        <Container maxWidth="lg">
-          <Box display="flex" alignItems="center">
-            <Logo />
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-              flex={1}
-            >
-              <Box />
-              <Box>
-                <Button
-                  component={Link}
-                  href="/dashboards/crypto"
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                >
-                  Live Preview
-                </Button>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </HeaderWrapper>
-      <Hero />
-      <Container maxWidth="lg" sx={{ mt: 8 }}>
-        <Typography textAlign="center" variant="subtitle1">
-          Crafted by LiV
-        </Typography>
+    <>
+      <PageTitleWrapper>
+        <PageHeader />
+      </PageTitleWrapper>
+      <Container maxWidth="lg">
+        <Grid
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="stretch"
+          spacing={4}
+        >
+          <Grid item lg={8} xs={12}>
+            <Cards 
+              title="Claims"
+              data={claimsData}
+              createOption
+              createBtnText='Create Claim'
+              createTooltipMsg="Click to add a new claim"
+              createRedirectLink="/claims/create"
+            />
+          </Grid>
+        </Grid>
       </Container>
-    </OverviewWrapper>
+    </>
   );
 }
 
 export default Overview;
 
 Overview.getLayout = function getLayout(page: ReactElement) {
-  return <BaseLayout>{page}</BaseLayout>;
+  return <SidebarLayout>{page}</SidebarLayout>;
 };

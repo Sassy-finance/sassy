@@ -15,6 +15,21 @@ import {
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
+const StyledCard = styled(Card)(({ theme }) => {
+  return `
+    transition: ${theme.transitions.create(['all'])};
+    
+    .MuiTouchRipple-root {
+      opacity: .2;
+    }
+    
+    &:hover {
+      background: ${theme.colors.alpha.black[10]};
+      cursor: pointer;
+    }
+  `;
+});
+
 const AvatarWrapper = styled(Avatar)(
   ({ theme }) => `
     margin: ${theme.spacing(2, 0, 1, -0.5)};
@@ -78,48 +93,70 @@ const CardAddAction = styled(Card)(
 
 interface CardsProps {
   title: string;
-  cardsData: Array<any>;
-  addNewCard?: boolean;
-  addTooltipMsg?: string;
-  addRedirectLink?: string;
+  data: Array<any>;
+  details?: boolean;
+  detailsRedirectLink?: string;
+  createOption?: boolean;
+  createBtnText?: string;
+  createTooltipMsg?: string;
+  createRedirectLink?: string;
 }
 
 function Cards({
   title,
-  cardsData,
-  addNewCard,
-  addTooltipMsg,
-  addRedirectLink
+  data,
+  details,
+  detailsRedirectLink,
+  createOption,
+  createBtnText,
+  createTooltipMsg,
+  createRedirectLink
 }: CardsProps) {
   const router = useRouter();
 
-  const DisplayCard = ({ name, symbol, logo, value, amount }) => (
-    <Card sx={{ px: 1 }}>
-      <CardContent>
-        <AvatarWrapper>
-          <img alt={name} src={logo} />
-        </AvatarWrapper>
-        <Typography variant="h5" noWrap>
-          {name}
+  const DisplayCardContent = ({ name, symbol, logo, value, amount }) => (
+    <CardContent>
+      <AvatarWrapper>
+        <img alt={name} src={logo} />
+      </AvatarWrapper>
+      <Typography variant="h5" noWrap>
+        {name}
+      </Typography>
+      <Typography variant="subtitle1" noWrap>
+        {symbol}
+      </Typography>
+      <Box sx={{ pt: 3 }}>
+        <Typography variant="h3" gutterBottom noWrap>
+          {value}
         </Typography>
-        <Typography variant="subtitle1" noWrap>
-          {symbol}
+        <Typography variant="subtitle2" noWrap>
+          {amount}
         </Typography>
-        <Box sx={{ pt: 3 }}>
-          <Typography variant="h3" gutterBottom noWrap>
-            {value}
-          </Typography>
-          <Typography variant="subtitle2" noWrap>
-            {amount}
-          </Typography>
-        </Box>
-      </CardContent>
-    </Card>
+      </Box>
+    </CardContent>
   );
 
+  const DisplayCard = (cardProps: any) =>
+    details ? (
+      <StyledCard
+        sx={{ px: 1 }}
+        onClick={() => {
+          if (details) {
+            router.push(`${detailsRedirectLink}/${cardProps.id}`);
+          }
+        }}
+      >
+        <DisplayCardContent {...cardProps} />
+      </StyledCard>
+    ) : (
+      <Card sx={{ px: 1 }}>
+        <DisplayCardContent {...cardProps} />
+      </Card>
+    );
+
   const AddCard = () => (
-    <Tooltip arrow title={addTooltipMsg}>
-      <CardAddAction onClick={() => router.push(addRedirectLink)}>
+    <Tooltip arrow title={createTooltipMsg}>
+      <CardAddAction onClick={() => router.push(createRedirectLink)}>
         <CardActionArea sx={{ px: 1 }}>
           <CardContent>
             <AvatarAddWrapper>
@@ -142,24 +179,24 @@ function Cards({
         }}
       >
         <Typography variant="h3">{title}</Typography>
-        {addNewCard && (
+        {createOption && (
           <Button
             size="small"
             variant="outlined"
             startIcon={<AddTwoToneIcon fontSize="small" />}
-            href="/claims/create"
+            href={createRedirectLink}
           >
-            Create Claim
+            {createBtnText}
           </Button>
         )}
       </Box>
       <Grid container spacing={3}>
-        {cardsData.map(({ id, ...displayData }) => (
+        {data.map(({ id, ...item }) => (
           <Grid key={id} xs={12} sm={6} md={3} item>
-            <DisplayCard {...displayData} />
+            <DisplayCard id={id} {...item} />
           </Grid>
         ))}
-        {addNewCard && (
+        {createOption && (
           <Grid xs={12} sm={6} md={3} item>
             <AddCard />
           </Grid>
