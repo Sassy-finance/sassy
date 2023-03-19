@@ -4,7 +4,6 @@ const executeDueDiligende = () => {
     try {
         const jsonString = fs.readFileSync("./inputs/transactions-history.json");
         const transactions = JSON.parse(jsonString.toString());
-        console.log(transactions)
         let debts = 0
         let collateral = 0
 

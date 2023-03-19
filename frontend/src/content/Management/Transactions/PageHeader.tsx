@@ -1,12 +1,19 @@
 import { Typography, Button, Grid } from '@mui/material';
-
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { FC } from 'react';
 
-function PageHeader() {
+interface PageHeaderProps {
+  getHistoricalTransactions?: () => {};
+  uploadToIPFS: () => {};
+}
+
+const PageHeader: FC<PageHeaderProps> = ({ getHistoricalTransactions, uploadToIPFS }) => {
+
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
   };
+
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -22,6 +29,15 @@ function PageHeader() {
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
+          onClick={getHistoricalTransactions}
+        >
+          Load transaction history
+        </Button>
+        <Button
+          sx={{ mt: { xs: 2, md: 0 } }}
+          variant="contained"
+          startIcon={<AddTwoToneIcon fontSize="small" />}
+          onClick={uploadToIPFS}
         >
           Upload to Filecoin
         </Button>

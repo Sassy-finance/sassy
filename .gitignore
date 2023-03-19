@@ -4,3 +4,4 @@
 /bacalhau/node_modules
 /bacalhau/job-*
 /bacalhau/dist
+/frontend/.env.local

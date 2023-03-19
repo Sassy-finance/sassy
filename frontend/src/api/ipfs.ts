@@ -17,7 +17,6 @@ export const makeStorageClient = () => {
 export const storeFiles = async (files: any, name: string) => {
     const client = makeStorageClient()
     const cid = await client.put(files, { name })
-    console.log('stored files with cid:', cid)
     return cid
 }
 

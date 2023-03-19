@@ -88,8 +88,6 @@ export const getAccounts = async (
     requisition: string,
 ): Promise<any> => {
     try {
-        console.log(accessToken)
-        console.log(requisition)
         const response = await axios.get(
             `https://ob.nordigen.com/api/v2/requisitions/${requisition}/`,
             {
