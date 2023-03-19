@@ -3,13 +3,73 @@ import PageHeader from '@/content/Management/Transactions/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
 
+import { createToken, createAgreement, createLink, getAccounts, getTransactions } from '../../../src/api/nordigen'
+import { storeFiles, makeFileObjects } from '../../../src/api/ipfs'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react';
+import { API_CALLBACK_URL } from '@/config';
+
 import RecentClaims from '@/content/claims/mortgage/RecentClaims';
 
 function MortgageTransactions() {
+
+  const router = useRouter()
+  const requisition = router.query.ref as string
+  const [transactions, setTransactions] = useState([])
+
+  useEffect(() => {
+    if (requisition && requisition !== '') {
+      getTransactionData(requisition)
+    }
+  }, [requisition])
+
+  const getTransactionData = async (requisition: string) => {
+    const token = localStorage.getItem('authToken') || ''
+    const accounts = await getAccounts(token, requisition)
+    const transactions = await getTransactions(token, accounts[0])
+    setTransactions(transactions.booked)
+  }
+
+  const getHistoricalTransactions = async () => {
+    const institution = 'SANDBOXFINANCE_SFIN0000'
+    const token = await createToken()
+
+    localStorage.setItem('authToken', token)
+
+    const agreement = await createAgreement(
+      token,
+      institution,
+      ['balances', 'details', 'transactions']
+    )
+
+    const link = await createLink(
+      token,
+      API_CALLBACK_URL,
+      institution,
+      agreement,
+      'EN'
+    )
+    window.open(link, '_blank');
+  }
+
+
+  const uploadToIPFS = async () => {
+
+    const cid = await storeFiles(
+      makeFileObjects(
+        transactions,
+        'transaction-history.json'
+      ),
+      'transaction-history.json'
+    )
+
+    console.log({cid})
+  }
+
   return (
     <>
       <PageTitleWrapper>
-        <PageHeader />
+        <PageHeader getHistoricalTransactions={getHistoricalTransactions} uploadToIPFS={uploadToIPFS}/>
       </PageTitleWrapper>
       <Container maxWidth="lg" style={{ marginBottom: '2rem' }}>
         <Grid
@@ -20,7 +80,7 @@ function MortgageTransactions() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentClaims />
+            <RecentClaims transactions={transactions} />
           </Grid>
         </Grid>
       </Container>

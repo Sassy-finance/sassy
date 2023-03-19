@@ -7,10 +7,11 @@ import Footer from '@/components/Footer';
 import RecentOrders from '@/content/Management/Transactions/RecentOrders';
 
 function ApplicationsTransactions() {
+
   return (
     <>
       <PageTitleWrapper>
-        <PageHeader />
+        <PageHeader/>
       </PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid

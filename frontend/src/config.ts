@@ -4,3 +4,4 @@ export const NORDIGEN_ENDPOINT_LINK = 'https://ob.nordigen.com/api/v2/requisitio
 export const NORDIGEN_SECRET_ID = process.env.NEXT_PUBLIC_NORDIGEN_SECRET_ID || ''
 export const NORDIGEN_SECRET_KEY = process.env.NEXT_PUBLIC_NORDIGEN_SECRET_KEY || ''
 export const IPFS_KEY = process.env.NEXT_PUBLIC_IPFS_KEY || ''
+export const API_CALLBACK_URL = process.env.NEXT_PUBLIC_API_CALLBACK || 'http://localhost:3000/claims/mortgage'
