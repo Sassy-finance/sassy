@@ -10,7 +10,7 @@ import {
   Avatar,
   Tooltip,
   CardActionArea,
-  styled
+  styled,
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
@@ -73,6 +73,8 @@ interface CardsProps {
   createTooltipMsg?: string;
   createRedirectLink?: string;
   displayCardContent: (props: any) => JSX.Element;
+  selectedCard?: string | null;
+  handleCardSelection?: (id: string) => void;
 }
 
 function Cards({
@@ -86,16 +88,24 @@ function Cards({
   createTooltipMsg,
   createRedirectLink,
   displayCardContent,
+  selectedCard,
+  handleCardSelection,
 }: CardsProps) {
   const router = useRouter();
 
   const DisplayCard = (cardProps: any) =>
     details ? (
       <StyledCard
-        sx={{ px: 1 }}
+        sx={{
+          px: 1,
+          border: selectedCard === cardProps.id ? '1px solid #223354' : 'none',
+         }}
         onClick={() => {
           if (detailsRedirectLink) {
-            router.push(`${detailsRedirectLink}/${cardProps.id}`);
+            return router.push(`${detailsRedirectLink}/${cardProps.id}`);
+          }
+          if (handleCardSelection) {
+            return handleCardSelection(cardProps.id);
           }
         }}
       >

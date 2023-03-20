@@ -6,6 +6,7 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { useState } from 'react';
 import type { ReactElement } from 'react';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
@@ -40,6 +41,15 @@ const claimsData = [
 ];
 
 function Overview() {
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const handleCardSelection = (id: string) => {
+    if (selectedCard === id) {
+      setSelectedCard(null);
+    } else {
+      setSelectedCard(id);
+    }
+  };
+
   return (
     <>
       <Container maxWidth="lg" sx={{ mt: '2rem', pb: '1rem' }}>
@@ -64,6 +74,8 @@ function Overview() {
               displayCardContent={(cardProps: any) => (
                 <NFTsCardContent {...cardProps} />
               )}
+              selectedCard={selectedCard}
+              handleCardSelection={handleCardSelection}
             />
             <Card style={{ marginTop: '2rem' }}>
               <CardContent>
@@ -75,7 +87,7 @@ function Overview() {
                   noValidate
                   autoComplete="off"
                 >
-                  <Grid container spacing={3} paddingRight='1rem'>
+                  <Grid container spacing={3} paddingRight="1rem">
                     <Grid item xs={12} sm={6}>
                       <TextField
                         id="outlined-search"
