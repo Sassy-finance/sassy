@@ -6,6 +6,7 @@ import { Typography, Button, Grid } from '@mui/material';
 interface PageTitleProps {
   heading?: string;
   subHeading?: string;
+  btnMsg?: string;
   docs?: string;
 }
 
@@ -13,6 +14,7 @@ const PageTitle: FC<PageTitleProps> = ({
   heading = '',
   subHeading = '',
   docs = '',
+  btnMsg = 'View Docs',
   ...rest
 }) => {
   return (
@@ -37,7 +39,7 @@ const PageTitle: FC<PageTitleProps> = ({
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
         >
-          {heading} Documentation
+          {btnMsg}
         </Button>
       </Grid>
     </Grid>

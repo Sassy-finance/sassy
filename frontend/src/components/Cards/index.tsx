@@ -8,7 +8,6 @@ import {
   CardContent,
   Typography,
   Avatar,
-  alpha,
   Tooltip,
   CardActionArea,
   styled
@@ -29,34 +28,6 @@ const StyledCard = styled(Card)(({ theme }) => {
     }
   `;
 });
-
-const AvatarWrapper = styled(Avatar)(
-  ({ theme }) => `
-    margin: ${theme.spacing(2, 0, 1, -0.5)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: ${theme.spacing(1)};
-    padding: ${theme.spacing(0.5)};
-    border-radius: 60px;
-    height: ${theme.spacing(5.5)};
-    width: ${theme.spacing(5.5)};
-    background: ${
-      theme.palette.mode === 'dark'
-        ? theme.colors.alpha.trueWhite[30]
-        : alpha(theme.colors.alpha.black[100], 0.07)
-    };
-  
-    img {
-      background: ${theme.colors.alpha.trueWhite[100]};
-      padding: ${theme.spacing(0.5)};
-      display: block;
-      border-radius: inherit;
-      height: ${theme.spacing(4.5)};
-      width: ${theme.spacing(4.5)};
-    }
-`
-);
 
 const AvatarAddWrapper = styled(Avatar)(
   ({ theme }) => `
@@ -93,6 +64,7 @@ const CardAddAction = styled(Card)(
 
 interface CardsProps {
   title: string;
+  subtitle?: string;
   data: Array<any>;
   details?: boolean;
   detailsRedirectLink?: string;
@@ -104,6 +76,7 @@ interface CardsProps {
 
 function Cards({
   title,
+  subtitle,
   data,
   details,
   detailsRedirectLink,
@@ -114,23 +87,17 @@ function Cards({
 }: CardsProps) {
   const router = useRouter();
 
-  const DisplayCardContent = ({ name, symbol, logo, value, amount }) => (
+  const DisplayCardContent = ({ name, amount }) => (
     <CardContent>
-      <AvatarWrapper>
-        <img alt={name} src={logo} />
-      </AvatarWrapper>
-      <Typography variant="h5" noWrap>
+      <Typography variant="h3" noWrap marginTop={'1rem'}>
         {name}
       </Typography>
-      <Typography variant="subtitle1" noWrap>
-        {symbol}
-      </Typography>
       <Box sx={{ pt: 3 }}>
-        <Typography variant="h3" gutterBottom noWrap>
-          {value}
+        <Typography variant="subtitle2">
+          {`Max Liabilities: ${amount}`}
         </Typography>
-        <Typography variant="subtitle2" noWrap>
-          {amount}
+        <Typography variant="subtitle2">
+          {`Min Collateral: ${amount}`}
         </Typography>
       </Box>
     </CardContent>
@@ -178,7 +145,12 @@ function Cards({
           pb: 3
         }}
       >
-        <Typography variant="h3">{title}</Typography>
+        <Box display="flex" alignItems="center">
+          <Typography variant="h3" sx={{ mr: '1rem' }}>
+            {title}
+          </Typography>
+          <Typography variant="subtitle2">{subtitle}</Typography>
+        </Box>
         {createOption && (
           <Button
             size="small"
