@@ -9,6 +9,7 @@ import Cards from '@/components/Cards';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
 import ClaimsCardContent from '@/content/claims/CardContent';
+import { useRouter } from 'next/router';
 
 const claimsData = [
   {
@@ -38,6 +39,7 @@ const claimsData = [
 ];
 
 function Overview() {
+  const router = useRouter();
   return (
     <>
       <PageTitleWrapper>
@@ -56,10 +58,10 @@ function Overview() {
               title="Claims"
               data={claimsData}
               displayCardContent={(cardProps: any) => <ClaimsCardContent {...cardProps} />} 
-              createOption
               createBtnText='Create Claim'
               createTooltipMsg="Click to add a new claim"
-              createRedirectLink="/claims/create"
+              handleClickBtn={() => router.push("/claims/create")}
+              handleAddCardClick={() => router.push("/claims/create")}
             />
           </Grid>
         </Grid>

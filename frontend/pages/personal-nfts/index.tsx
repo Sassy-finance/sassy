@@ -12,6 +12,7 @@ import type { ReactElement } from 'react';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
 import NFTsCardContent from '@/content/personal-nfts/CardContent';
+import { useRouter } from 'next/router';
 
 const claimsData = [
   {
@@ -41,6 +42,7 @@ const claimsData = [
 ];
 
 function Overview() {
+  const router = useRouter();
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const handleCardSelection = (id: string) => {
     if (selectedCard === id) {
@@ -67,10 +69,8 @@ function Overview() {
               subtitle="Select your Tier"
               data={claimsData}
               details
-              createOption
-              createBtnText="Create Claim"
-              createTooltipMsg="Click to add a new claim"
-              createRedirectLink="/claims/create"
+              createBtnText="Mint NFT"
+              handleClickBtn={() => router.push("/claims/create")}
               displayCardContent={(cardProps: any) => (
                 <NFTsCardContent {...cardProps} />
               )}

@@ -68,10 +68,10 @@ interface CardsProps {
   data: Array<any>;
   details?: boolean;
   detailsRedirectLink?: string;
-  createOption?: boolean;
   createBtnText?: string;
+  handleClickBtn?: () => void;
+  handleAddCardClick?: () => void;
   createTooltipMsg?: string;
-  createRedirectLink?: string;
   displayCardContent: (props: any) => JSX.Element;
   selectedCard?: string | null;
   handleCardSelection?: (id: string) => void;
@@ -83,10 +83,10 @@ function Cards({
   data,
   details,
   detailsRedirectLink,
-  createOption,
   createBtnText,
+  handleClickBtn,
+  handleAddCardClick,
   createTooltipMsg,
-  createRedirectLink,
   displayCardContent,
   selectedCard,
   handleCardSelection,
@@ -119,7 +119,7 @@ function Cards({
 
   const AddCard = () => (
     <Tooltip arrow title={createTooltipMsg}>
-      <CardAddAction onClick={() => router.push(createRedirectLink)}>
+      <CardAddAction onClick={handleAddCardClick}>
         <CardActionArea sx={{ px: 1 }}>
           <CardContent>
             <AvatarAddWrapper>
@@ -147,24 +147,24 @@ function Cards({
           </Typography>
           <Typography variant="subtitle2">{subtitle}</Typography>
         </Box>
-        {createOption && (
+        {createBtnText && (
           <Button
             size="small"
             variant="outlined"
             startIcon={<AddTwoToneIcon fontSize="small" />}
-            href={createRedirectLink}
+            onClick={handleClickBtn}
           >
             {createBtnText}
           </Button>
         )}
       </Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{ justifyContent: 'center' }}>
         {data.map(({ id, ...item }) => (
           <Grid key={id} xs={12} sm={6} md={3} item>
             <DisplayCard id={id} {...item} />
           </Grid>
         ))}
-        {createOption && (
+        {handleAddCardClick && (
           <Grid xs={12} sm={6} md={3} item>
             <AddCard />
           </Grid>
