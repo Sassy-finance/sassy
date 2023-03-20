@@ -193,6 +193,19 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/personal-nfts" passHref>
+                  <Button
+                    className={currentRoute === '/personal-nfts' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<DesignServicesTwoToneIcon />}
+                  >
+                    Your NFTs
+                  </Button>
+                </NextLink>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>

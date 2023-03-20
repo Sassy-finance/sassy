@@ -1,4 +1,5 @@
 import Cards from '@/components/Cards';
+import OffersCardContent from '@/content/personal-offers/CardContent';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
 import { Container, Grid } from '@mui/material';
@@ -61,6 +62,7 @@ function PersonalClaimOffers() {
             <Cards
               title="Personal claim offers"
               data={claimsData}
+              displayCardContent={(cardProps: any) => <OffersCardContent {...cardProps} />}
               details
               detailsRedirectLink={`/personal-offers`}
             />

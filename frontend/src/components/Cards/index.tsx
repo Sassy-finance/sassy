@@ -10,7 +10,7 @@ import {
   Avatar,
   Tooltip,
   CardActionArea,
-  styled
+  styled,
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
@@ -68,10 +68,13 @@ interface CardsProps {
   data: Array<any>;
   details?: boolean;
   detailsRedirectLink?: string;
-  createOption?: boolean;
   createBtnText?: string;
+  handleClickBtn?: () => void;
+  handleAddCardClick?: () => void;
   createTooltipMsg?: string;
-  createRedirectLink?: string;
+  displayCardContent: (props: any) => JSX.Element;
+  selectedCard?: string | null;
+  handleCardSelection?: (id: string) => void;
 }
 
 function Cards({
@@ -80,50 +83,43 @@ function Cards({
   data,
   details,
   detailsRedirectLink,
-  createOption,
   createBtnText,
+  handleClickBtn,
+  handleAddCardClick,
   createTooltipMsg,
-  createRedirectLink
+  displayCardContent,
+  selectedCard,
+  handleCardSelection,
 }: CardsProps) {
   const router = useRouter();
-
-  const DisplayCardContent = ({ name, amount }) => (
-    <CardContent>
-      <Typography variant="h3" noWrap marginTop={'1rem'}>
-        {name}
-      </Typography>
-      <Box sx={{ pt: 3 }}>
-        <Typography variant="subtitle2">
-          {`Max Liabilities: ${amount}`}
-        </Typography>
-        <Typography variant="subtitle2">
-          {`Min Collateral: ${amount}`}
-        </Typography>
-      </Box>
-    </CardContent>
-  );
 
   const DisplayCard = (cardProps: any) =>
     details ? (
       <StyledCard
-        sx={{ px: 1 }}
+        sx={{
+          px: 1,
+          border: selectedCard === cardProps.id ? '1px solid #223354' : 'none',
+         }}
         onClick={() => {
-          if (details) {
-            router.push(`${detailsRedirectLink}/${cardProps.id}`);
+          if (detailsRedirectLink) {
+            return router.push(`${detailsRedirectLink}/${cardProps.id}`);
+          }
+          if (handleCardSelection) {
+            return handleCardSelection(cardProps.id);
           }
         }}
       >
-        <DisplayCardContent {...cardProps} />
+        {displayCardContent(cardProps)}
       </StyledCard>
     ) : (
       <Card sx={{ px: 1 }}>
-        <DisplayCardContent {...cardProps} />
+        {displayCardContent(cardProps)}
       </Card>
     );
 
   const AddCard = () => (
     <Tooltip arrow title={createTooltipMsg}>
-      <CardAddAction onClick={() => router.push(createRedirectLink)}>
+      <CardAddAction onClick={handleAddCardClick}>
         <CardActionArea sx={{ px: 1 }}>
           <CardContent>
             <AvatarAddWrapper>
@@ -151,24 +147,24 @@ function Cards({
           </Typography>
           <Typography variant="subtitle2">{subtitle}</Typography>
         </Box>
-        {createOption && (
+        {createBtnText && (
           <Button
             size="small"
             variant="outlined"
             startIcon={<AddTwoToneIcon fontSize="small" />}
-            href={createRedirectLink}
+            onClick={handleClickBtn}
           >
             {createBtnText}
           </Button>
         )}
       </Box>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{ justifyContent: 'center' }}>
         {data.map(({ id, ...item }) => (
           <Grid key={id} xs={12} sm={6} md={3} item>
             <DisplayCard id={id} {...item} />
           </Grid>
         ))}
-        {createOption && (
+        {handleAddCardClick && (
           <Grid xs={12} sm={6} md={3} item>
             <AddCard />
           </Grid>
