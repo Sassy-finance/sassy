@@ -19,7 +19,9 @@ module.exports = (sequelize: any, DataTypes: any) => {
 
     static associate(models: any) {
       Claim.hasMany(models.ClaimOffer,
-        { foreignKey: 'claimId' }
+        {
+          foreignKey: 'claimId',
+        }
       )
     }
   }
@@ -40,9 +42,6 @@ module.exports = (sequelize: any, DataTypes: any) => {
     timestamps: false
   })
 
-  if (config.createTables) {
-    Claim.sync({ force: true });
-  }
 
   return Claim
 

@@ -41,7 +41,10 @@ app.use((_, res) => {
 })
 
 db.sequelize.authenticate().then(
-    app.listen(config.app.port, () => {
+    app.listen(config.app.port, async () => {
+        if (config.createTables === 'True') {
+            await db.sequelize.sync({ force: true })
+        }
         console.log(`Sever listening`)
     })
 ).catch(err => console.log(`Error connecting with the db ${err}`))
