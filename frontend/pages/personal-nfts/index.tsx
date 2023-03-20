@@ -1,4 +1,11 @@
-import { Container, Grid } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  TextField
+} from '@mui/material';
 import type { ReactElement } from 'react';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
@@ -35,13 +42,14 @@ const claimsData = [
 function Overview() {
   return (
     <>
-      <Container maxWidth="lg" sx={{ mt: '2rem' }}>
+      <Container maxWidth="lg" sx={{ mt: '2rem', pb: '1rem' }}>
         <Grid
           container
           direction="row"
           justifyContent="center"
           alignItems="stretch"
           spacing={4}
+          marginBottom="1rem"
         >
           <Grid item lg={8} xs={12}>
             <Cards
@@ -49,13 +57,45 @@ function Overview() {
               subtitle="Select your Tier"
               data={claimsData}
               details
-              detailsRedirectLink='/claims/mint'
               createOption
               createBtnText="Create Claim"
               createTooltipMsg="Click to add a new claim"
               createRedirectLink="/claims/create"
-              displayCardContent={(cardProps: any) => <NFTsCardContent {...cardProps} />}
+              displayCardContent={(cardProps: any) => (
+                <NFTsCardContent {...cardProps} />
+              )}
             />
+            <Card style={{ marginTop: '2rem' }}>
+              <CardContent>
+                <Box
+                  component="form"
+                  sx={{
+                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Grid container spacing={3} paddingRight='1rem'>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        id="outlined-search"
+                        label="Notional"
+                        type="search"
+                        style={{ width: '100%' }}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        id="outlined-search"
+                        label="Rate"
+                        type="search"
+                        style={{ width: '100%' }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </Container>

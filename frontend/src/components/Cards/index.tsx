@@ -94,7 +94,7 @@ function Cards({
       <StyledCard
         sx={{ px: 1 }}
         onClick={() => {
-          if (details) {
+          if (detailsRedirectLink) {
             router.push(`${detailsRedirectLink}/${cardProps.id}`);
           }
         }}
