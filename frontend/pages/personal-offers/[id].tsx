@@ -6,7 +6,7 @@ import { Grid, Container } from '@mui/material';
 function PersonalOfferDetail() {
   return (
     <>
-      <Container maxWidth="lg" style={{ marginBottom: '2rem' }}>
+      <Container maxWidth="lg" style={{ margin: '2rem 0' }}>
         <Grid
           container
           direction="row"

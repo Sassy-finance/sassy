@@ -10,12 +10,16 @@ import { useEffect, useState } from 'react';
 import { API_CALLBACK_URL } from '@/config';
 
 import RecentClaims from '@/content/claims/mortgage/RecentClaims';
+import UploadDataModal from '@/components/UploadDataModal';
+import Button from '@mui/material/Button';
 
 function MortgageTransactions() {
 
   const router = useRouter()
   const requisition = router.query.ref as string
   const [transactions, setTransactions] = useState([])
+  const [openModal, setOpenModal] = useState(false)
+  const handleClose = () => setOpenModal(false)
 
   useEffect(() => {
     if (requisition && requisition !== '') {
@@ -52,7 +56,6 @@ function MortgageTransactions() {
     window.open(link, '_blank');
   }
 
-
   const uploadToIPFS = async () => {
 
     const cid = await storeFiles(
@@ -84,6 +87,8 @@ function MortgageTransactions() {
           </Grid>
         </Grid>
       </Container>
+      <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
+      <UploadDataModal open={openModal} handleClose={handleClose} />
     </>
   );
 }
