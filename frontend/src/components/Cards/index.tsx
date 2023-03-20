@@ -72,6 +72,7 @@ interface CardsProps {
   createBtnText?: string;
   createTooltipMsg?: string;
   createRedirectLink?: string;
+  displayCardContent: (props: any) => JSX.Element;
 }
 
 function Cards({
@@ -83,25 +84,10 @@ function Cards({
   createOption,
   createBtnText,
   createTooltipMsg,
-  createRedirectLink
+  createRedirectLink,
+  displayCardContent,
 }: CardsProps) {
   const router = useRouter();
-
-  const DisplayCardContent = ({ name, amount }) => (
-    <CardContent>
-      <Typography variant="h3" noWrap marginTop={'1rem'}>
-        {name}
-      </Typography>
-      <Box sx={{ pt: 3 }}>
-        <Typography variant="subtitle2">
-          {`Max Liabilities: ${amount}`}
-        </Typography>
-        <Typography variant="subtitle2">
-          {`Min Collateral: ${amount}`}
-        </Typography>
-      </Box>
-    </CardContent>
-  );
 
   const DisplayCard = (cardProps: any) =>
     details ? (
@@ -113,11 +99,11 @@ function Cards({
           }
         }}
       >
-        <DisplayCardContent {...cardProps} />
+        {displayCardContent(cardProps)}
       </StyledCard>
     ) : (
       <Card sx={{ px: 1 }}>
-        <DisplayCardContent {...cardProps} />
+        {displayCardContent(cardProps)}
       </Card>
     );
 

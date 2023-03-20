@@ -3,6 +3,7 @@ import type { ReactElement } from 'react';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
+import NFTsCardContent from '@/content/personal-nfts/CardContent';
 
 const claimsData = [
   {
@@ -53,6 +54,7 @@ function Overview() {
               createBtnText="Create Claim"
               createTooltipMsg="Click to add a new claim"
               createRedirectLink="/claims/create"
+              displayCardContent={(cardProps: any) => <NFTsCardContent {...cardProps} />}
             />
           </Grid>
         </Grid>

@@ -8,6 +8,7 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
+import ClaimsCardContent from '@/content/claims/CardContent';
 
 const claimsData = [
   {
@@ -54,6 +55,7 @@ function Overview() {
             <Cards 
               title="Claims"
               data={claimsData}
+              displayCardContent={(cardProps: any) => <ClaimsCardContent {...cardProps} />} 
               createOption
               createBtnText='Create Claim'
               createTooltipMsg="Click to add a new claim"
