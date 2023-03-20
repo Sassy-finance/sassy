@@ -1,5 +1,6 @@
 /backend/node_modules
 /backend/data
+/backend/data
 /backend/.env
 /backend/mysql_data
 /bacalhau/node_modules
@@ -7,3 +8,4 @@
 /bacalhau/dist
 /bacalhau/outputs
 /frontend/.env.local
+/backend/results/*
