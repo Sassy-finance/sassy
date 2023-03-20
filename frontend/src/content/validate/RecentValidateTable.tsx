@@ -196,7 +196,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               </FormControl>
             </Box>
           }
-          title="Recent Orders"
+          title="Recent Claims"
         />
       )}
       <Divider />
