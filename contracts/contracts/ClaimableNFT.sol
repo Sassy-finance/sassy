@@ -8,32 +8,34 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import {DataTypes} from "./types/DataTypes.sol";
+import "./lib/GenesisUtils.sol";
+import "./interfaces/ICircuitValidator.sol";
+import "./verifiers/ZKPVerifier.sol";
 
 contract ClaimableNFT is
     ERC721,
     ERC721Enumerable,
     Pausable,
     Ownable,
-    ERC721Burnable
+    ERC721Burnable,
+    ZKPVerifier
 {
     using Counters for Counters.Counter;
-    address public nftRegistry;
     uint256 public MAX_LOAN_THRESHOLD;
-    uint256 public MIN_CREDIT_SCORE_THRESHOLD;
+    uint64 public constant TRANSFER_REQUEST_ID = 1;
+    mapping(uint256 => address) public idToAddress;
+    mapping(address => uint256) public addressToId;
+    mapping(uint256 => DataTypes.LoanParameters) loanParameters;
 
     Counters.Counter private _tokenIdCounter;
-    mapping(uint256 => DataTypes.LoanParameters) loanParameters;
+    mapping(address => bool) isValidated;
 
     constructor(
         string memory name,
         string memory symbol,
-        uint256 _maxLoanThreshold,
-        uint256 _minCreditScoreThreshold,
-        address _nftRegistry
+        uint256 _maxLoanThreshold
     ) ERC721(name, symbol) {
         MAX_LOAN_THRESHOLD = _maxLoanThreshold;
-        MIN_CREDIT_SCORE_THRESHOLD = _minCreditScoreThreshold;
-        nftRegistry = _nftRegistry;
     }
 
     function pause() public onlyOwner {
@@ -51,14 +53,11 @@ contract ClaimableNFT is
             _loanParameters.notional <= MAX_LOAN_THRESHOLD,
             "Max loan exceeded"
         );
-        require(
-            _loanParameters.creditScore >= MIN_CREDIT_SCORE_THRESHOLD,
-            "Not enough credit score"
-        );
+        require(isValidated[_msgSender()], "Not valid claim for this address");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         loanParameters[tokenId] = _loanParameters;
-        _safeMint(nftRegistry, tokenId);
+        _safeMint(_msgSender(), tokenId);
         return tokenId;
     }
 
@@ -85,5 +84,33 @@ contract ClaimableNFT is
         bytes4 interfaceId
     ) public view override(ERC721, ERC721Enumerable) returns (bool) {
         return super.supportsInterface(interfaceId);
+    }
+
+    function _beforeProofSubmit(
+        uint64 /* requestId */,
+        uint256[] memory inputs,
+        ICircuitValidator validator
+    ) internal view override {
+        // check that  challenge input is address of sender
+        address addr = GenesisUtils.int256ToAddress(
+            inputs[validator.getChallengeInputIndex()]
+        );
+        // this is linking between msg.sender and
+        require(
+            _msgSender() == addr,
+            "address in proof is not a sender address"
+        );
+    }
+
+    function _afterProofSubmit(
+        uint64 requestId,
+        uint256[] memory inputs,
+        ICircuitValidator validator
+    ) internal override {
+        require(
+            requestId == TRANSFER_REQUEST_ID && addressToId[_msgSender()] == 0,
+            "proof can not be submitted more than once"
+        );
+        isValidated[_msgSender()] = true;
     }
 }

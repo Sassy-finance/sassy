@@ -4,7 +4,7 @@ pragma solidity ^0.8.9;
 library DataTypes {
     struct LoanParameters {
         uint256 notional;
-        uint256 creditScore;
+        uint256 rate;
     }
     struct NFTClaim {
         address collection;
