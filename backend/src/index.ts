@@ -34,7 +34,7 @@ app.get('/', (_, res) => {
     )
 })
 
-app.use('/api/v1/claim', ClaimRouter)
+app.use('/backend/api/v1/claim', ClaimRouter)
 
 app.use((_, res) => {
     res.status(404).send()
