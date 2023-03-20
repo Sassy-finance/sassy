@@ -15,6 +15,26 @@ export const createClaim = async (claim: IClaim) => {
 }
 
 
+export const pendingClaims = async () => { 
+    try {
+        const claims = await db.Claim.findAll({
+            where: {
+                status: 'CREATING'
+            },
+            include: [
+                db.ClaimOffer
+            ]
+        });
+
+        return claims
+
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+
 export const userClaims = async (user: string) => { 
     try {
         const claims = await db.Claim.findAll({

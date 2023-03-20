@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express'
-import { userClaims, createClaim } from '../controllers/Claim';
+import { userClaims, createClaim, pendingClaims } from '../controllers/Claim';
 import { IClaim } from '../models/Claim';
 
 
@@ -42,7 +42,19 @@ const getUserClaims = async (req: Request, res: Response) => {
     }
 };
 
+const getAllPendingClaims = async (req: Request, res: Response) => {
+    try {
+        const claims = await pendingClaims()
+
+        return res.json(claims)
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 router.post('/getUserClaims', getUserClaims)
+router.get('/pendingClaim', getAllPendingClaims)
 router.post('/create', create)
 
 
