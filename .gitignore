@@ -9,3 +9,4 @@
 /bacalhau/outputs
 /frontend/.env.local
 /backend/results/*
+/backend/dist
