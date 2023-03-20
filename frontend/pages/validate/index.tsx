@@ -1,12 +1,11 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
-import PageHeader from '@/content/Management/Transactions/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
-import Footer from '@/components/Footer';
 
-import RecentOrders from '@/content/Management/Transactions/RecentOrders';
+import PageHeader from '@/content/validate/PageHeader';
+import RecentValidate from '@/content/validate/RecentValidate';
 
-function ApplicationsTransactions() {
+function ValidateTable() {
 
   return (
     <>
@@ -22,17 +21,16 @@ function ApplicationsTransactions() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentOrders />
+            <RecentValidate />
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 }
 
-ApplicationsTransactions.getLayout = (page) => (
+ValidateTable.getLayout = (page) => (
   <SidebarLayout>{page}</SidebarLayout>
 );
 
-export default ApplicationsTransactions;
+export default ValidateTable;

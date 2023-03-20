@@ -206,6 +206,19 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+              <ListItem component="div">
+                <NextLink href="/validate" passHref>
+                  <Button
+                    className={currentRoute === '/validate' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<DesignServicesTwoToneIcon />}
+                  >
+                    Validate
+                  </Button>
+                </NextLink>
+              </ListItem>
             </List>
           </SubMenuWrapper>
         </List>

@@ -2,7 +2,7 @@ import { Container, Grid } from '@mui/material';
 
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
+import PageHeader from '@/content/Overview/PageHeader';
 import MyCards from '@/content/Management/Users/details/MyCards';
 import SidebarLayout from '@/layouts/SidebarLayout';
 

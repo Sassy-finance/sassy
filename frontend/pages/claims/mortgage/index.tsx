@@ -1,5 +1,4 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
-import PageHeader from '@/content/Management/Transactions/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
 
@@ -12,6 +11,7 @@ import { API_CALLBACK_URL } from '@/config';
 import RecentClaims from '@/content/claims/mortgage/RecentClaims';
 import UploadDataModal from '@/components/UploadDataModal';
 import Button from '@mui/material/Button';
+import PageHeader from '@/content/claims/mortgage/PageHeader';
 
 function MortgageTransactions() {
 
