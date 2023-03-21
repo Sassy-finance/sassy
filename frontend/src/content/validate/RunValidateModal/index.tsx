@@ -5,13 +5,15 @@ interface RunValidateModalProps {
   handleClose: () => void;
   dockerImageToRun: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmitValidate: () => void;
 }
 
 function RunValidateModal({
   open,
   handleClose,
   dockerImageToRun,
-  handleInputChange
+  handleInputChange,
+  handleSubmitValidate,
 }: RunValidateModalProps) {
   return (
     <>
@@ -22,7 +24,7 @@ function RunValidateModal({
         inputValue={dockerImageToRun}
         handleInputChange={handleInputChange}
         textBtn="Run Validation"
-        handleSubmit={() => {}}
+        handleSubmit={handleSubmitValidate}
       />
     </>
   );

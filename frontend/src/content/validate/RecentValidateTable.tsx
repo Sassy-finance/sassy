@@ -27,8 +27,11 @@ import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
 import { User } from '@/context';
 
-const StyledTableRow = styled(TableRow)(
+const StyledPlayIcon = styled(PlayArrowIcon)(
   () => `
+    border-radius: 1rem;
+    width: 1.8rem;
+    height: 1.8rem;
     &:hover {
       background-color: #f5f5f5;
       cursor: pointer;
@@ -101,6 +104,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
     status: null
   });
   const [dockerImageToRun, setDockerImageToRun] = useState<string>('');
+  const [selectedClaimId, setSelectedClaimId] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleOpenModal = (): void => setOpenModal(true);
@@ -158,14 +162,19 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
     setDockerImageToRun(e.target.value);
   };
 
-  const handleSelectOneClaim = (claimId: string) => {
-    handleOpenModal();
+  const handleSubmitValidate = () => {
     const payload = {
       user: signer,
       imageId: dockerImageToRun,
-      claimId,
+      claimId: selectedClaimId
     };
-    console.log(payload);
+    console.log(payload); // backend
+    setSelectedClaimId('');
+  }
+
+  const handleRunValidation = (claimId: string) => {
+    handleOpenModal();
+    setSelectedClaimId(claimId);
   };
 
   const formatAddress = (address: string): string => {
@@ -223,11 +232,10 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
                 claim.id
               );
               return (
-                <StyledTableRow
+                <TableRow
                   hover
                   key={claim.id}
                   selected={isCryptoOrderSelected}
-                  onClick={() => handleSelectOneClaim(claim.id)}
                 >
                   <TableCell>
                     <Typography
@@ -255,9 +263,9 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
                     {getStatusLabel(claim.status)}
                   </TableCell>
                   <TableCell>
-                    <PlayArrowIcon />
+                    <StyledPlayIcon onClick={() => handleRunValidation(claim.id)} />
                   </TableCell>
-                </StyledTableRow>
+                </TableRow>
               );
             })}
             <RunValidateModal
@@ -265,6 +273,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
               handleClose={handleCloseModal}
               dockerImageToRun={dockerImageToRun}
               handleInputChange={handleInputModalChange}
+              handleSubmitValidate={handleSubmitValidate}
             />
           </TableBody>
         </Table>
