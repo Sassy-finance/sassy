@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express'
+import { sendNotification } from '../commands/push';
 import { userClaims, createClaim, pendingClaims } from '../controllers/Claim';
 import { IClaim } from '../models/Claim';
 
@@ -18,6 +19,11 @@ const create = async (req: Request, res: Response) => {
             status: "CREATING",
         }
         const claimSaved = await createClaim(claim)
+
+        sendNotification(
+            'Request Created!',
+            'Your request has been successfully created. You will receive notifications from validators shortly!'
+        )
 
         return res.json(claimSaved);
 
