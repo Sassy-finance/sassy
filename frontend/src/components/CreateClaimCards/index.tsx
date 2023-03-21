@@ -51,8 +51,8 @@ function MyCards() {
       <Divider />
       <Box p={3}>
         <Grid container spacing={3}>
-          {cardsContent.map((card) => (
-            <Grid item xs={12} sm={4}>
+          {cardsContent.map((card, index) => (
+            <Grid key={index} item xs={12} sm={4}>
               <CardCc
                 sx={{ px: 2, pt: 2, pb: 1 }}
                 onClick={() => router.push(card.link)}
