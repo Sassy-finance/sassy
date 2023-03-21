@@ -25,6 +25,7 @@ import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
+import { formatAddress } from '@/utils';
 
 const StyledTableRow = styled(TableRow)(
   () => `
@@ -153,13 +154,6 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const handleSelectOneClaim = (claimId: string) => {
     console.log(claimId);
     handleOpenModal();
-  };
-
-  const formatAddress = (address: string): string => {
-    return `${address.substring(0, 6)}...${address.substring(
-      address.length - 4,
-      address.length
-    )}`;
   };
 
   return (
