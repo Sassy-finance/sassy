@@ -10,7 +10,7 @@ export const generateClaim = async () => {
                     "credentialSchema": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json/KYCAgeCredential-v3.json",
                     "type": "KYCAgeCredential",
                     "credentialSubject": {
-                        "id": config.ISSUER_ID,
+                        "id": config.USER_ID,
                         "birthday": 19960424,
                         "documentType": 2
                     },
@@ -22,7 +22,7 @@ export const generateClaim = async () => {
                     },
                     auth: {
                         username: config.ISSUER_USER,
-                        password: config.ISSUER_USER
+                        password: config.ISSUER_PASSWORD
                     }
                 },
             );

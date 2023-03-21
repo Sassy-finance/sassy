@@ -2,7 +2,7 @@ import fs from 'fs';
 
 const executeDueDiligende = async () => {
     try {
-        const jsonString = fs.readFileSync("./inputs/transactions-history.json");
+        const jsonString = fs.readFileSync("./inputs/transaction-history.json");
         const transactions = JSON.parse(jsonString.toString());
         let debts = 0
         let collateral = 0
