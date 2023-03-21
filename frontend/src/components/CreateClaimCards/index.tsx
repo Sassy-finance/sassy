@@ -11,31 +11,29 @@ import { useRouter } from 'next/router';
 
 const CardCc = styled(Card)(
   ({ theme }) => `
-    border: 1px solid ${theme.colors.alpha.black[30]};
-    background: ${theme.colors.alpha.black[5]};
-    box-shadow: none;
-
-    height: 100%;
-    color: ${theme.colors.primary.main};
-    transition: ${theme.transitions.create(['all'])};
-    cursor: pointer;    
-
-    .MuiCardActionArea-root {
+      border: 1px solid ${theme.colors.alpha.black[30]};
+      background: ${theme.colors.alpha.black[5]};
+      box-shadow: none;
       height: 100%;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-    }
-        
-    .MuiTouchRipple-root {
-      opacity: .2;
-    }
-        
-    &:hover {
-      border-color: ${theme.colors.alpha.black[60]};
-      background: ${theme.colors.alpha.black[10]};
-    }
-`
+      color: ${theme.colors.primary.main};
+      transition: ${theme.transitions.create(['all'])};
+      cursor: pointer;    
+      .MuiCardActionArea-root {
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+          
+      .MuiTouchRipple-root {
+        opacity: .2;
+      }
+          
+      &:hover {
+        border-color: ${theme.colors.alpha.black[60]};
+        background: ${theme.colors.alpha.black[10]};
+      }
+  `
 );
 
 function MyCards() {

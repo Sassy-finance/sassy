@@ -1,5 +1,5 @@
 import SidebarLayout from '@/layouts/SidebarLayout';
-import PageHeader from '@/content/Management/Transactions/PageHeader';
+import PageHeader from '@/content/claims/mortgage/PageHeader';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
 

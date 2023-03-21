@@ -3,14 +3,12 @@ import { format } from 'date-fns';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import {
-  Tooltip,
   Divider,
   Box,
   FormControl,
   InputLabel,
   Card,
   Checkbox,
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -21,15 +19,23 @@ import {
   Select,
   MenuItem,
   Typography,
-  useTheme,
-  CardHeader
+  CardHeader,
+  styled,
 } from '@mui/material';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import BulkActions from './BulkActions';
+import RunValidateModal from './RunValidateModal';
+
+const StyledTableRow = styled(TableRow)(
+  () => `
+    &:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  `
+);
 
 interface RecentOrdersTableProps {
   className?: string;
@@ -84,7 +90,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
+const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -94,6 +100,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const handleOpenModal = (): void => setOpenModal(true);
+
+  const handleCloseModal = (): void => setOpenModal(false);
 
   const statusOptions = [
     {
@@ -172,7 +183,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     selectedCryptoOrders.length < cryptoOrders.length;
   const selectedAllCryptoOrders =
     selectedCryptoOrders.length === cryptoOrders.length;
-  const theme = useTheme();
+
+  const handleSelectOneClaim = (claimId: string) => {
+    console.log(claimId);
+    handleOpenModal();
+  };
 
   return (
     <Card>
@@ -202,7 +217,7 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
               </FormControl>
             </Box>
           }
-          title="Recent Orders"
+          title="Recent Claims"
         />
       )}
       <Divider />
@@ -218,8 +233,8 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   onChange={handleSelectAllCryptoOrders}
                 />
               </TableCell>
-              <TableCell>Transaction Details</TableCell>
-              <TableCell>Transaction ID</TableCell>
+              <TableCell>Claim Details</TableCell>
+              <TableCell>Claim ID</TableCell>
               <TableCell>Source</TableCell>
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">Status</TableCell>
@@ -231,10 +246,11 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                 cryptoOrder.id
               );
               return (
-                <TableRow
+                <StyledTableRow
                   hover
                   key={cryptoOrder.id}
                   selected={isCryptoOrderSelected}
+                  onClick={() => handleSelectOneClaim(cryptoOrder.id)}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -305,9 +321,10 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}
                   </TableCell>
-                </TableRow>
+                </StyledTableRow>
               );
             })}
+            <RunValidateModal open={openModal} handleClose={handleCloseModal} />
           </TableBody>
         </Table>
       </TableContainer>
@@ -326,12 +343,12 @@ const RecentOrdersTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   );
 };
 
-RecentOrdersTable.propTypes = {
+RecentValidateTable.propTypes = {
   cryptoOrders: PropTypes.array.isRequired
 };
 
-RecentOrdersTable.defaultProps = {
+RecentValidateTable.defaultProps = {
   cryptoOrders: []
 };
 
-export default RecentOrdersTable;
+export default RecentValidateTable;

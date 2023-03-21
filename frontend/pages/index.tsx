@@ -7,7 +7,7 @@ import type { ReactElement } from 'react';
 import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
-import PageHeader from '@/content/Dashboards/Crypto/PageHeader';
+import PageHeader from '@/content/Overview/PageHeader';
 import ClaimsCardContent from '@/content/claims/CardContent';
 import { useRouter } from 'next/router';
 

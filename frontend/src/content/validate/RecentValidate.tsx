@@ -1,9 +1,9 @@
 import { Card } from '@mui/material';
 import { CryptoOrder } from '@/models/crypto_order';
-import RecentOrdersTable from './RecentOrdersTable';
+import RecentValidateTable from './RecentValidateTable';
 import { subDays } from 'date-fns';
 
-function RecentOrders() {
+function RecentValidate() {
   const cryptoOrders: CryptoOrder[] = [
     {
       id: '1',
@@ -138,10 +138,10 @@ function RecentOrders() {
   ];
 
   return (
-    <Card>
-      <RecentOrdersTable cryptoOrders={cryptoOrders} />
+    <Card sx={{ mb: '2rem' }}>
+      <RecentValidateTable cryptoOrders={cryptoOrders} />
     </Card>
   );
 }
 
-export default RecentOrders;
+export default RecentValidate;
