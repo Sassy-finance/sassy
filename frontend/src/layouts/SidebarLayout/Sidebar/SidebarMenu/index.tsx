@@ -189,7 +189,31 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Your claim offers
+                    Applicant
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div" style={{ paddingLeft: '2rem' }}>
+                <NextLink href="/personal-offers" passHref>
+                  <Button
+                    className={currentRoute === '/personal-offers' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                  >
+                    My Claims
+                  </Button>
+                </NextLink>
+              </ListItem>
+              <ListItem component="div" style={{ paddingLeft: '2rem' }}>
+                <NextLink href="/personal-offers" passHref>
+                  <Button
+                    className={currentRoute === '/personal-offers' ? 'active' : ''}
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                  >
+                    My NFTs
                   </Button>
                 </NextLink>
               </ListItem>
@@ -202,20 +226,19 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Your NFTs
+                    Validator
                   </Button>
                 </NextLink>
               </ListItem>
-              <ListItem component="div">
+              <ListItem component="div" style={{ paddingLeft: '2rem' }}>
                 <NextLink href="/validate" passHref>
                   <Button
                     className={currentRoute === '/validate' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
-                    startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Validate
+                    Claims
                   </Button>
                 </NextLink>
               </ListItem>
