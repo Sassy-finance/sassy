@@ -5,13 +5,30 @@ import {
 
 export const createClaim = async (user: string, cid: string): Promise<string> => {
     try {
-        console.log(`${BACKEND_URL}claim/create`)
         const response = await axios.post(
             `${BACKEND_URL}claim/create`,
             {
                 user,
                 cid,
             },
+            {
+                headers: {
+                    'accept': 'application/json',
+                },
+            },
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+
+export const getPendingClaims = async (): Promise<string> => {
+    try {
+        const response = await axios.get(
+            `${BACKEND_URL}claim/pendingClaim`,
             {
                 headers: {
                     'accept': 'application/json',
