@@ -57,8 +57,8 @@ function Overview() {
             <Cards 
               title="Claims"
               data={claimsData}
-              displayCardContent={(cardProps: any) => <ClaimsCardContent {...cardProps} />} 
-              createBtnText='Create Claim'
+              displayCardContent={(cardProps: any) => <ClaimsCardContent {...cardProps} />}
+              createBtnText="Create Claim"
               createTooltipMsg="Click to add a new claim"
               handleClickBtn={() => router.push("/claims/create")}
               handleAddCardClick={() => router.push("/claims/create")}
