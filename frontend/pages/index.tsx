@@ -66,9 +66,6 @@ function Overview() {
           </Grid>
         </Grid>
       </Container>
-      <div>
-        <QRcode value="https://www.google.com" />
-      </div>
     </>
   );
 }
