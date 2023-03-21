@@ -4,10 +4,11 @@ import { Grid, Container } from '@mui/material';
 
 import PageHeader from '@/content/validate/PageHeader';
 import RecentValidate from '@/content/validate/RecentValidate';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getPendingClaims } from '@/api/backend';
 
 function ValidateTable() {
+  const [claimsData, setClaimsData] = useState([]);
 
   useEffect(() => {
     getData()
@@ -15,8 +16,8 @@ function ValidateTable() {
 
 
   const getData = async () => {
-    const claims = await getPendingClaims()
-    console.log(claims)
+    const claims: any = await getPendingClaims();
+    setClaimsData(claims);
   }
 
   return (
@@ -33,7 +34,7 @@ function ValidateTable() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentValidate />
+            <RecentValidate data={claimsData} />
           </Grid>
         </Grid>
       </Container>

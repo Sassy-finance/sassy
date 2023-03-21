@@ -1,6 +1,4 @@
 import { FC, ChangeEvent, useState } from 'react';
-import { format } from 'date-fns';
-import numeral from 'numeral';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -8,7 +6,6 @@ import {
   FormControl,
   InputLabel,
   Card,
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -22,6 +19,7 @@ import {
   CardHeader,
   styled,
 } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
@@ -39,7 +37,7 @@ const StyledTableRow = styled(TableRow)(
 
 interface RecentOrdersTableProps {
   className?: string;
-  cryptoOrders: CryptoOrder[];
+  claims: any[];
 }
 
 interface Filters {
@@ -62,7 +60,7 @@ const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
     }
   };
 
-  const { text, color }: any = map[cryptoOrderStatus];
+  const { text, color }: any = map.pending;
 
   return <Label color={color}>{text}</Label>;
 };
@@ -90,7 +88,7 @@ const applyPagination = (
   return cryptoOrders.slice(page * limit, page * limit + limit);
 };
 
-const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
+const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -138,32 +136,6 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     }));
   };
 
-  const handleSelectAllCryptoOrders = (
-    event: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setSelectedCryptoOrders(
-      event.target.checked
-        ? cryptoOrders.map((cryptoOrder) => cryptoOrder.id)
-        : []
-    );
-  };
-
-  const handleSelectOneCryptoOrder = (
-    _event: ChangeEvent<HTMLInputElement>,
-    cryptoOrderId: string
-  ): void => {
-    if (!selectedCryptoOrders.includes(cryptoOrderId)) {
-      setSelectedCryptoOrders((prevSelected) => [
-        ...prevSelected,
-        cryptoOrderId
-      ]);
-    } else {
-      setSelectedCryptoOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== cryptoOrderId)
-      );
-    }
-  };
-
   const handlePageChange = (_event: any, newPage: number): void => {
     setPage(newPage);
   };
@@ -172,21 +144,22 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
     setLimit(parseInt(event.target.value));
   };
 
-  const filteredCryptoOrders = applyFilters(cryptoOrders, filters);
-  const paginatedCryptoOrders = applyPagination(
-    filteredCryptoOrders,
+  const filteredClaims = applyFilters(claims, filters);
+  const paginatedClaims = applyPagination(
+    filteredClaims,
     page,
     limit
   );
-  const selectedSomeCryptoOrders =
-    selectedCryptoOrders.length > 0 &&
-    selectedCryptoOrders.length < cryptoOrders.length;
-  const selectedAllCryptoOrders =
-    selectedCryptoOrders.length === cryptoOrders.length;
-
   const handleSelectOneClaim = (claimId: string) => {
     console.log(claimId);
     handleOpenModal();
+  };
+
+  const formatAddress = (address: string): string => {
+    return `${address.substring(0, 6)}...${address.substring(
+      address.length - 4,
+      address.length
+    )}`;
   };
 
   return (
@@ -225,43 +198,24 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllCryptoOrders}
-                  indeterminate={selectedSomeCryptoOrders}
-                  onChange={handleSelectAllCryptoOrders}
-                />
-              </TableCell>
-              <TableCell>Claim Details</TableCell>
-              <TableCell>Claim ID</TableCell>
-              <TableCell>Source</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Status</TableCell>
+              <TableCell>User</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCryptoOrders.map((cryptoOrder) => {
+            {paginatedClaims.map((claim) => {
               const isCryptoOrderSelected = selectedCryptoOrders.includes(
-                cryptoOrder.id
+                claim.id
               );
               return (
                 <StyledTableRow
                   hover
-                  key={cryptoOrder.id}
+                  key={claim.id}
                   selected={isCryptoOrderSelected}
-                  onClick={() => handleSelectOneClaim(cryptoOrder.id)}
+                  onClick={() => handleSelectOneClaim(claim.id)}
                 >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isCryptoOrderSelected}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneCryptoOrder(event, cryptoOrder.id)
-                      }
-                      value={isCryptoOrderSelected}
-                    />
-                  </TableCell>
                   <TableCell>
                     <Typography
                       variant="body1"
@@ -270,10 +224,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderDetails}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
+                      {formatAddress(claim.user)}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -284,42 +235,14 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderID}
+                      mortgage
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.sourceName}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.sourceDesc}
-                    </Typography>
+                    {getStatusLabel(claim.status)}
                   </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.amountCrypto}
-                      {cryptoOrder.cryptoCurrency}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {numeral(cryptoOrder.amount).format(
-                        `${cryptoOrder.currency}0,0.00`
-                      )}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    {getStatusLabel(cryptoOrder.status)}
+                  <TableCell>
+                    <PlayArrowIcon />
                   </TableCell>
                 </StyledTableRow>
               );
@@ -331,7 +254,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
       <Box p={2}>
         <TablePagination
           component="div"
-          count={filteredCryptoOrders.length}
+          count={claims.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
@@ -344,11 +267,11 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
 };
 
 RecentValidateTable.propTypes = {
-  cryptoOrders: PropTypes.array.isRequired
+  claims: PropTypes.array.isRequired
 };
 
 RecentValidateTable.defaultProps = {
-  cryptoOrders: []
+  claims: []
 };
 
 export default RecentValidateTable;
