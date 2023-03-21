@@ -3,6 +3,7 @@ import OffersCardContent from '@/content/personal-offers/CardContent';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
 import { Container, Grid } from '@mui/material';
+import { useRouter } from 'next/router';
 
 const claimsData = [
   {
@@ -48,6 +49,11 @@ const claimsData = [
 ];
 
 function PersonalClaimOffers() {
+  const router = useRouter();
+
+  const handleCreateClaim = () => {
+    router.push('/claims/create');
+  }
   return (
     <>
       <Container maxWidth="lg" style={{ margin: '2rem 0' }}>
@@ -65,6 +71,10 @@ function PersonalClaimOffers() {
               displayCardContent={(cardProps: any) => <OffersCardContent {...cardProps} />}
               details
               detailsRedirectLink={`/personal-offers`}
+              createBtnText="Create claim"
+              handleClickBtn={handleCreateClaim}
+              createTooltipMsg="Create a new claim offer"
+              handleAddCardClick={handleCreateClaim}
             />
           </Grid>
         </Grid>
