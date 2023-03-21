@@ -75,9 +75,7 @@ function Header() {
       </Stack>
       <Box display="flex" alignItems="center">
         <HeaderButtons />
-        {isLogged && <HeaderUserbox />}
-        {!isLogged && <HeaderConnectWallet />}
-        <HeaderConnectWallet />
+        {isLogged ? <HeaderUserbox /> : <HeaderConnectWallet />}
         <Box
           component="span"
           sx={{
