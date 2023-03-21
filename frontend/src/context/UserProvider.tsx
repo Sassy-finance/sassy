@@ -1,14 +1,19 @@
 import { useState } from 'react';
 
 import { ethers } from 'ethers';
+import { User } from '.';
 
 declare global {
-    interface Window {
-        ethereum?: any;
-    }
+  interface Window {
+    ethereum?: any;
+  }
 }
 
-const UserProvider = () => {
+interface UserProviderProps {
+  children: React.ReactNode;
+}
+
+const UserProvider = ({ children }: UserProviderProps) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [provider, setProvider] = useState<any>(undefined);
   const [signer, setSigner] = useState<any>();
@@ -31,6 +36,19 @@ const UserProvider = () => {
       }
     }
   };
+
+  return (
+    <User.Provider
+      value={{
+        isLogged,
+        loginMetamask,
+        provider,
+        signer
+      }}
+    >
+      {children}
+    </User.Provider>
+  );
 };
 
 export default UserProvider;
