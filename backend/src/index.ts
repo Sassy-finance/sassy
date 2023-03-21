@@ -7,6 +7,8 @@ import config from './config'
 import db from './models'
 
 import ClaimRouter from './routes/ClaimRouter'
+import ClaimOfferRouter from './routes/ClaimOfferRouter'
+
 
 const app = express()
 
@@ -35,6 +37,8 @@ app.get('/', (_, res) => {
 })
 
 app.use('/backend/api/v1/claim', ClaimRouter)
+app.use('/backend/api/v1/claimOffer', ClaimOfferRouter)
+
 
 app.use((_, res) => {
     res.status(404).send()
