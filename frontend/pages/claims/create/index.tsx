@@ -3,7 +3,7 @@ import { Container, Grid } from '@mui/material';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
 import PageHeader from '@/content/Overview/PageHeader';
-import MyCards from '@/content/Management/Users/details/MyCards';
+import MyCards from '@/components/CreateClaimCards';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
 function CreateClaims() {

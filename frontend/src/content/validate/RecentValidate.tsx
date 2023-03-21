@@ -138,7 +138,7 @@ function RecentValidate() {
   ];
 
   return (
-    <Card>
+    <Card sx={{ mb: '2rem' }}>
       <RecentValidateTable cryptoOrders={cryptoOrders} />
     </Card>
   );

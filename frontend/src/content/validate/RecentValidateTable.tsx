@@ -19,12 +19,23 @@ import {
   Select,
   MenuItem,
   Typography,
-  CardHeader
+  CardHeader,
+  styled,
 } from '@mui/material';
 
 import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
+import RunValidateModal from './RunValidateModal';
+
+const StyledTableRow = styled(TableRow)(
+  () => `
+    &:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+    }
+  `
+);
 
 interface RecentOrdersTableProps {
   className?: string;
@@ -89,6 +100,11 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const handleOpenModal = (): void => setOpenModal(true);
+
+  const handleCloseModal = (): void => setOpenModal(false);
 
   const statusOptions = [
     {
@@ -168,6 +184,11 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
   const selectedAllCryptoOrders =
     selectedCryptoOrders.length === cryptoOrders.length;
 
+  const handleSelectOneClaim = (claimId: string) => {
+    console.log(claimId);
+    handleOpenModal();
+  };
+
   return (
     <Card>
       {selectedBulkActions && (
@@ -212,8 +233,8 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   onChange={handleSelectAllCryptoOrders}
                 />
               </TableCell>
-              <TableCell>Transaction Details</TableCell>
-              <TableCell>Transaction ID</TableCell>
+              <TableCell>Claim Details</TableCell>
+              <TableCell>Claim ID</TableCell>
               <TableCell>Source</TableCell>
               <TableCell align="right">Amount</TableCell>
               <TableCell align="right">Status</TableCell>
@@ -225,10 +246,11 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                 cryptoOrder.id
               );
               return (
-                <TableRow
+                <StyledTableRow
                   hover
                   key={cryptoOrder.id}
                   selected={isCryptoOrderSelected}
+                  onClick={() => handleSelectOneClaim(cryptoOrder.id)}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -299,9 +321,10 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ cryptoOrders }) => {
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}
                   </TableCell>
-                </TableRow>
+                </StyledTableRow>
               );
             })}
+            <RunValidateModal open={openModal} handleClose={handleCloseModal} />
           </TableBody>
         </Table>
       </TableContainer>

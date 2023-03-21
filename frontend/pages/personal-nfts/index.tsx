@@ -41,15 +41,30 @@ const claimsData = [
   }
 ];
 
+interface FormInput {
+  notional: string;
+  rate: string;
+}
+
 function Overview() {
   const router = useRouter();
+  const [formInput, setFormInput] = useState<FormInput>({
+    notional: '',
+    rate: '',
+  });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+
   const handleCardSelection = (id: string) => {
     if (selectedCard === id) {
       setSelectedCard(null);
     } else {
       setSelectedCard(id);
     }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormInput({ ...formInput, [name]: value });
   };
 
   return (
@@ -93,6 +108,9 @@ function Overview() {
                         id="outlined-search"
                         label="Notional"
                         type="search"
+                        name='notional'
+                        value={formInput.notional}
+                        onChange={handleInputChange}
                         style={{ width: '100%' }}
                       />
                     </Grid>
@@ -101,6 +119,9 @@ function Overview() {
                         id="outlined-search"
                         label="Rate"
                         type="search"
+                        name='rate'
+                        value={formInput.rate}
+                        onChange={handleInputChange}
                         style={{ width: '100%' }}
                       />
                     </Grid>
