@@ -1,5 +1,5 @@
 import { Box, styled, Card, Typography } from '@mui/material';
-import { QRCodeSVG } from 'qrcode.react';
+import { QRCode } from "react-qr-svg";
 
 const QRCard = styled(Card)({
   display: 'flex',
@@ -23,7 +23,7 @@ const TextBox = styled(Box)({
 });
 
 interface QRcodeProps {
-  value: string;
+  value: { [key: string]: any};
   title?: string;
 }
 
@@ -46,7 +46,7 @@ function QRcode({ value, title }: QRcodeProps) {
             </Typography>
           </TextBox>
         )}
-        <QRCodeSVG value={value} />
+        <QRCode level='Q' value={JSON.stringify(value)} />
       </QRCard>
     </>
   );
