@@ -7,7 +7,8 @@ import {
   List,
   styled,
   Button,
-  ListItem
+  ListItem,
+  Typography
 } from '@mui/material';
 import NextLink from 'next/link';
 import { SidebarContext } from 'src/contexts/SidebarContext';
@@ -176,19 +177,6 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<DesignServicesTwoToneIcon />}
                   >
-                    Overview
-                  </Button>
-                </NextLink>
-              </ListItem>
-              <ListItem component="div">
-                <NextLink href="/personal-offers" passHref>
-                  <Button
-                    className={currentRoute === '/personal-offers' ? 'active' : ''}
-                    disableRipple
-                    component="a"
-                    onClick={closeSidebar}
-                    startIcon={<DesignServicesTwoToneIcon />}
-                  >
                     Applicant
                   </Button>
                 </NextLink>
@@ -196,31 +184,39 @@ function SidebarMenu() {
               <ListItem component="div" style={{ paddingLeft: '2rem' }}>
                 <NextLink href="/personal-offers" passHref>
                   <Button
-                    className={currentRoute === '/personal-offers' ? 'active' : ''}
+                    className={
+                      currentRoute === '/personal-offers' ? 'active' : ''
+                    }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                   >
-                    My Claims
+                    <Typography variant="h6" component="span">
+                      My Claims
+                    </Typography>
                   </Button>
                 </NextLink>
               </ListItem>
               <ListItem component="div" style={{ paddingLeft: '2rem' }}>
-                <NextLink href="/personal-offers" passHref>
+                <NextLink href="/personal-nfts" passHref>
                   <Button
-                    className={currentRoute === '/personal-offers' ? 'active' : ''}
+                    className={
+                      currentRoute === '/personal-nfts' ? 'active' : ''
+                    }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                   >
-                    My NFTs
+                    <Typography variant="h6" component="span">
+                      My NFTs
+                    </Typography>
                   </Button>
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/personal-nfts" passHref>
+                <NextLink href="/validate" passHref>
                   <Button
-                    className={currentRoute === '/personal-nfts' ? 'active' : ''}
+                    className={currentRoute === '/validate' ? 'active' : ''}
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
@@ -238,7 +234,9 @@ function SidebarMenu() {
                     component="a"
                     onClick={closeSidebar}
                   >
-                    Claims
+                    <Typography variant="h6" component="span">
+                      Claims
+                    </Typography>
                   </Button>
                 </NextLink>
               </ListItem>
