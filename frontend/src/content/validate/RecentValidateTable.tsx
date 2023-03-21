@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from 'react';
+import { FC, ChangeEvent, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -25,6 +25,7 @@ import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
+import { User } from '@/context';
 
 const StyledTableRow = styled(TableRow)(
   () => `
@@ -44,7 +45,7 @@ interface Filters {
   status?: CryptoOrderStatus;
 }
 
-const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): any => {
   const map = {
     failed: {
       text: 'Failed',
@@ -89,6 +90,7 @@ const applyPagination = (
 };
 
 const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
+  const { signer } = useContext(User)
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -98,6 +100,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+  const [dockerImageToRun, setDockerImageToRun] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const handleOpenModal = (): void => setOpenModal(true);
@@ -150,9 +153,19 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
     page,
     limit
   );
+
+  const handleInputModalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDockerImageToRun(e.target.value);
+  };
+
   const handleSelectOneClaim = (claimId: string) => {
-    console.log(claimId);
     handleOpenModal();
+    const payload = {
+      user: signer,
+      imageId: dockerImageToRun,
+      claimId,
+    };
+    console.log(payload);
   };
 
   const formatAddress = (address: string): string => {
@@ -247,7 +260,12 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
                 </StyledTableRow>
               );
             })}
-            <RunValidateModal open={openModal} handleClose={handleCloseModal} />
+            <RunValidateModal
+              open={openModal}
+              handleClose={handleCloseModal}
+              dockerImageToRun={dockerImageToRun}
+              handleInputChange={handleInputModalChange}
+            />
           </TableBody>
         </Table>
       </TableContainer>
