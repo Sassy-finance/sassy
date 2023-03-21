@@ -47,7 +47,7 @@ app.use((_, res) => {
 db.sequelize.authenticate().then(
     app.listen(config.app.port, async () => {
         if (config.createTables === 'True') {
-            await db.sequelize.sync({ force: true })
+            // await db.sequelize.sync({ force: true })
         }
         console.log(`Sever listening`)
     })
