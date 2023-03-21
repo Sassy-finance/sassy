@@ -1,4 +1,7 @@
-import { Container, Grid } from '@mui/material';
+import {
+  Container,
+  Grid,
+} from '@mui/material';
 import type { ReactElement } from 'react';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
@@ -7,7 +10,6 @@ import PageTitleWrapper from '@/components/PageTitleWrapper';
 import PageHeader from '@/content/Overview/PageHeader';
 import ClaimsCardContent from '@/content/claims/CardContent';
 import { useRouter } from 'next/router';
-import QRcode from '@/components/QRcode';
 
 const claimsData = [
   {
@@ -52,16 +54,14 @@ function Overview() {
           spacing={4}
         >
           <Grid item lg={8} xs={12}>
-            <Cards
+            <Cards 
               title="Claims"
               data={claimsData}
-              displayCardContent={(cardProps: any) => (
-                <ClaimsCardContent {...cardProps} />
-              )}
+              displayCardContent={(cardProps: any) => <ClaimsCardContent {...cardProps} />}
               createBtnText="Create Claim"
               createTooltipMsg="Click to add a new claim"
-              handleClickBtn={() => router.push('/claims/create')}
-              handleAddCardClick={() => router.push('/claims/create')}
+              handleClickBtn={() => router.push("/claims/create")}
+              handleAddCardClick={() => router.push("/claims/create")}
             />
           </Grid>
         </Grid>
