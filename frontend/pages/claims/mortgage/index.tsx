@@ -12,6 +12,7 @@ import { API_CALLBACK_URL } from '@/config';
 import RecentClaims from '@/content/claims/mortgage/RecentClaims';
 import UploadDataModal from '@/components/UploadDataModal';
 import Button from '@mui/material/Button';
+import { createClaim } from '@/api/backend';
 
 function MortgageTransactions() {
 
@@ -57,7 +58,6 @@ function MortgageTransactions() {
   }
 
   const uploadToIPFS = async () => {
-
     const cid = await storeFiles(
       makeFileObjects(
         transactions,
@@ -66,7 +66,9 @@ function MortgageTransactions() {
       'transaction-history.json'
     )
 
-    console.log({cid})
+    await createClaim('0x', cid)
+
+    setOpenModal(true)
   }
 
   return (
