@@ -1,6 +1,5 @@
 import { Model } from "sequelize";
 import { Table } from 'sequelize-typescript'
-import config from "../config";
 
 export interface IClaimOffer {
   id?: number,
