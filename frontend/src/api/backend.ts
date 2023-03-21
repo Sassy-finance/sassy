@@ -41,3 +41,25 @@ export const getPendingClaims = async (): Promise<string> => {
         throw error;
     }
 }
+
+export const createClaimOffer = async (user: string, imageId: string, claimId: string): Promise<string> => {
+    try {
+        const response = await axios.post(
+            `${BACKEND_URL}claimOffer/create`,
+            {
+                user,
+                imageId,
+                claimId,
+            },
+            {
+                headers: {
+                    'accept': 'application/json',
+                },
+            },
+        );
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}

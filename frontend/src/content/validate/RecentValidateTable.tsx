@@ -26,6 +26,7 @@ import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
 import { User } from '@/context';
+import { createClaimOffer } from '@/api/backend';
 
 const StyledPlayIcon = styled(PlayArrowIcon)(
   () => `
@@ -93,7 +94,7 @@ const applyPagination = (
 };
 
 const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
-  const { signer } = useContext(User)
+  const { isLogged, signer } = useContext(User)
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -107,7 +108,7 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const [selectedClaimId, setSelectedClaimId] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const handleOpenModal = (): void => setOpenModal(true);
+  const handleOpenModal = (): void => isLogged && setOpenModal(true);
 
   const handleCloseModal = (): void => setOpenModal(false);
 
@@ -162,13 +163,8 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
     setDockerImageToRun(e.target.value);
   };
 
-  const handleSubmitValidate = () => {
-    const payload = {
-      user: signer,
-      imageId: dockerImageToRun,
-      claimId: selectedClaimId
-    };
-    console.log(payload); // backend
+  const handleSubmitValidate = async () => {
+    createClaimOffer(signer, dockerImageToRun, selectedClaimId);
     setSelectedClaimId('');
   }
 
