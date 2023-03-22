@@ -25,7 +25,7 @@ export const createClaim = async (user: string, cid: string): Promise<string> =>
 }
 
 
-export const getPendingClaims = async (): Promise<string> => {
+export const getPendingClaims = async (): Promise<any[]> => {
     try {
         const response = await axios.get(
             `${BACKEND_URL}claim/pendingClaim`,
