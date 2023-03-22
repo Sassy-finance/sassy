@@ -36,17 +36,17 @@ function TokyoApp(props: TokyoAppProps) {
 
   return (
     <CacheProvider value={emotionCache}>
-      <Head children={''}>
+      <Head>
         <title>Sassy</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <SidebarProvider children={''}>
+      <SidebarProvider>
         <ThemeProvider>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <UserProvider children={''}>
+            <UserProvider>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
             </UserProvider>
