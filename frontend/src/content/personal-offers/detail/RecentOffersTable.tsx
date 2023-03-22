@@ -29,6 +29,7 @@ import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import ShowQRModal from './ShowQRModal';
 import BulkActions from './BulkActions';
 
 interface RecentOffersTableProps {
@@ -94,6 +95,11 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const handleOpenModal = (): void => setOpenModal(true);
+  const handleCloseModal = (): void => setOpenModal(false);
+
 
   const statusOptions = [
     {
@@ -218,10 +224,9 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                   onChange={handleSelectAllCryptoOrders}
                 />
               </TableCell>
-              <TableCell>Order Details</TableCell>
-              <TableCell>Order ID</TableCell>
-              <TableCell>Source</TableCell>
-              <TableCell align="right">Amount</TableCell>
+              <TableCell>Issuer</TableCell>
+              <TableCell>Total Debts</TableCell>
+              <TableCell>Total Collateral</TableCell>
               <TableCell align="right">Status</TableCell>
               <TableCell align="right">Actions</TableCell>
             </TableRow>
@@ -257,9 +262,6 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.orderDetails}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {format(cryptoOrder.orderDate, 'MMMM dd yyyy')}
-                    </Typography>
                   </TableCell>
                   <TableCell>
                     <Typography
@@ -282,32 +284,12 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                     >
                       {cryptoOrder.sourceName}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {cryptoOrder.sourceDesc}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {cryptoOrder.amountCrypto}
-                      {cryptoOrder.cryptoCurrency}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" noWrap>
-                      {numeral(cryptoOrder.amount).format(
-                        `${cryptoOrder.currency}0,0.00`
-                      )}
-                    </Typography>
                   </TableCell>
                   <TableCell align="right">
                     {getStatusLabel(cryptoOrder.status)}
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="Edit Order" arrow>
+                    <Tooltip title="Show QR" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -317,26 +299,21 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                         }}
                         color="inherit"
                         size="small"
+                        onClick={() => handleOpenModal()}
                       >
                         <EditTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Order" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
                   </TableCell>
                 </TableRow>
               );
             })}
+            <ShowQRModal
+              open={openModal}
+              handleClose={handleCloseModal}
+              handleInputChange={()=>{}}
+              handleSubmit={()=>{}}
+            />
           </TableBody>
         </Table>
       </TableContainer>
