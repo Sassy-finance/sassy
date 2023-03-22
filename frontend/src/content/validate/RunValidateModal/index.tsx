@@ -1,18 +1,20 @@
-import { useState } from 'react';
-
 import SassyModal from '@/components/Modal';
 
 interface RunValidateModalProps {
-    open: boolean;
-    handleClose: () => void;
+  open: boolean;
+  handleClose: () => void;
+  dockerImageToRun: string;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmitValidate: () => void;
 }
 
-function RunValidateModal({ open, handleClose }: RunValidateModalProps) {
-  const [dockerImageToRun, setDockerImageToRun] = useState<string>('');
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDockerImageToRun(e.target.value);
-  };
-
+function RunValidateModal({
+  open,
+  handleClose,
+  dockerImageToRun,
+  handleInputChange,
+  handleSubmitValidate,
+}: RunValidateModalProps) {
   return (
     <>
       <SassyModal
@@ -22,7 +24,7 @@ function RunValidateModal({ open, handleClose }: RunValidateModalProps) {
         inputValue={dockerImageToRun}
         handleInputChange={handleInputChange}
         textBtn="Run Validation"
-        handleSubmit={() => {}}
+        handleSubmit={handleSubmitValidate}
       />
     </>
   );

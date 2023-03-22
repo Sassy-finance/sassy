@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from 'react';
+import { FC, ChangeEvent, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -25,10 +25,15 @@ import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
+import { User } from '@/context';
+import { createClaimOffer } from '@/api/backend';
 import { formatAddress } from '@/utils';
 
-const StyledTableRow = styled(TableRow)(
+const StyledPlayIcon = styled(PlayArrowIcon)(
   () => `
+    border-radius: 1rem;
+    width: 1.8rem;
+    height: 1.8rem;
     &:hover {
       background-color: #f5f5f5;
       cursor: pointer;
@@ -45,7 +50,7 @@ interface Filters {
   status?: CryptoOrderStatus;
 }
 
-const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): JSX.Element => {
+const getStatusLabel = (cryptoOrderStatus: CryptoOrderStatus): any => {
   const map = {
     failed: {
       text: 'Failed',
@@ -90,6 +95,7 @@ const applyPagination = (
 };
 
 const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
+  const { isLogged, signer } = useContext(User)
   const [selectedCryptoOrders, setSelectedCryptoOrders] = useState<string[]>(
     []
   );
@@ -99,9 +105,11 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const [filters, setFilters] = useState<Filters>({
     status: null
   });
+  const [dockerImageToRun, setDockerImageToRun] = useState<string>('');
+  const [selectedClaimId, setSelectedClaimId] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const handleOpenModal = (): void => setOpenModal(true);
+  const handleOpenModal = (): void => isLogged && setOpenModal(true);
 
   const handleCloseModal = (): void => setOpenModal(false);
 
@@ -151,9 +159,19 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
     page,
     limit
   );
-  const handleSelectOneClaim = (claimId: string) => {
-    console.log(claimId);
+
+  const handleInputModalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDockerImageToRun(e.target.value);
+  };
+
+  const handleSubmitValidate = async () => {
+    createClaimOffer(signer, dockerImageToRun, selectedClaimId);
+    setSelectedClaimId('');
+  }
+
+  const handleRunValidation = (claimId: string) => {
     handleOpenModal();
+    setSelectedClaimId(claimId);
   };
 
   return (
@@ -204,11 +222,10 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
                 claim.id
               );
               return (
-                <StyledTableRow
+                <TableRow
                   hover
                   key={claim.id}
                   selected={isCryptoOrderSelected}
-                  onClick={() => handleSelectOneClaim(claim.id)}
                 >
                   <TableCell>
                     <Typography
@@ -236,12 +253,18 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
                     {getStatusLabel(claim.status)}
                   </TableCell>
                   <TableCell>
-                    <PlayArrowIcon />
+                    <StyledPlayIcon onClick={() => handleRunValidation(claim.id)} />
                   </TableCell>
-                </StyledTableRow>
+                </TableRow>
               );
             })}
-            <RunValidateModal open={openModal} handleClose={handleCloseModal} />
+            <RunValidateModal
+              open={openModal}
+              handleClose={handleCloseModal}
+              dockerImageToRun={dockerImageToRun}
+              handleInputChange={handleInputModalChange}
+              handleSubmitValidate={handleSubmitValidate}
+            />
           </TableBody>
         </Table>
       </TableContainer>
