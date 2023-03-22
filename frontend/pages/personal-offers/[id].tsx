@@ -4,19 +4,26 @@ import { useRouter } from 'next/router'
 import { getPendingClaims } from '../../src/api/backend'
 
 import { Grid, Container } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 function PersonalOfferDetail() {
 
   const router = useRouter()
   const { id } = router.query
+  const [offers, setOffers] = useState([])
 
   console.log(id)
+
+  useEffect(() => { 
+    getData()
+  }, [])
 
 
   const getData = async () => {
     const claims = await getPendingClaims()
-    const claim = claims.find(claim => claim.id === id)
-    console.log(claim)
+    console.log(claims)
+    const claim = claims.find(claim => claim.id == id)
+    setOffers(claim.ClaimOffers)
   }
 
 
@@ -31,7 +38,7 @@ function PersonalOfferDetail() {
           spacing={3}
         >
           <Grid item xs={12}>
-            <RecentOffers />
+            <RecentOffers offers={offers}/>
           </Grid>
         </Grid>
       </Container>
