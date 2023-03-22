@@ -18,6 +18,8 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import HeaderButtons from './Buttons';
 import HeaderUserbox from './Userbox';
 import HeaderMenu from './Menu';
+import HeaderConnectWallet from './ConnectWallet';
+import { User } from '@/contexts';
 
 const HeaderWrapper = styled(Box)(
   ({ theme }) => `
@@ -40,6 +42,7 @@ const HeaderWrapper = styled(Box)(
 
 function Header() {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
+  const { isLogged } = useContext(User)
   const theme = useTheme();
 
   return (
@@ -72,7 +75,7 @@ function Header() {
       </Stack>
       <Box display="flex" alignItems="center">
         <HeaderButtons />
-        <HeaderUserbox />
+        {isLogged ? <HeaderUserbox /> : <HeaderConnectWallet />}
         <Box
           component="span"
           sx={{
@@ -80,7 +83,7 @@ function Header() {
             display: { lg: 'none', xs: 'inline-block' }
           }}
         >
-          <Tooltip arrow title="Toggle Menu">
+          <Tooltip arrow title="Toggle Menu" children={undefined}>
             <IconButton color="primary" onClick={toggleSidebar}>
               {!sidebarToggle ? (
                 <MenuTwoToneIcon fontSize="small" />
