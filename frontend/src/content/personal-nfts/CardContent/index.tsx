@@ -3,9 +3,10 @@ import { Box, CardContent, Typography } from "@mui/material";
 interface NFTsCardContentProps {
     name: string;
     amount: string;
+    value: string;
 }
 
-function NFTsCardContent({name, amount}: NFTsCardContentProps) {
+function NFTsCardContent({name, amount, value}: NFTsCardContentProps) {
   return (
     <CardContent>
       <Typography variant="h3" noWrap marginTop={'1rem'}>
@@ -16,7 +17,7 @@ function NFTsCardContent({name, amount}: NFTsCardContentProps) {
           {`Max Liabilities: ${amount}`}
         </Typography>
         <Typography variant="subtitle2">
-          {`Min Collateral: ${amount}`}
+          {`Min Collateral: ${value}`}
         </Typography>
       </Box>
     </CardContent>

@@ -1,55 +1,34 @@
+import { getPendingClaims } from '@/api/backend';
 import Cards from '@/components/Cards';
 import OffersCardContent from '@/content/personal-offers/CardContent';
 import SidebarLayout from '@/layouts/SidebarLayout';
 
 import { Container, Grid } from '@mui/material';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
-const claimsData = [
-  {
-    id: 'btc',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    logo: '/static/images/placeholders/logo/bitcoin.png',
-    value: '$3,586.22',
-    amount: '1.25843 BTC'
-  },
-  {
-    id: 'xrp',
-    name: 'Ripple',
-    symbol: 'XRP',
-    logo: '/static/images/placeholders/logo/ripple.png',
-    value: '$586.83',
-    amount: '5,783 XRP'
-  },
-  {
-    id: 'ada',
-    name: 'Cardano',
-    symbol: 'ADA',
-    logo: '/static/images/placeholders/logo/cardano.png',
-    value: '$54,985.00',
-    amount: '34,985 ADA'
-  },
-  {
-    id: 'xrp',
-    name: 'Ripple',
-    symbol: 'XRP',
-    logo: '/static/images/placeholders/logo/ripple.png',
-    value: '$586.83',
-    amount: '5,783 XRP'
-  },
-  {
-    id: 'ada',
-    name: 'Cardano',
-    symbol: 'ADA',
-    logo: '/static/images/placeholders/logo/cardano.png',
-    value: '$54,985.00',
-    amount: '34,985 ADA'
-  }
-];
 
 function PersonalClaimOffers() {
   const router = useRouter();
+
+  const [claimsData, setClaimData] = useState([])
+
+  const getData = async () => {
+    const claims = await getPendingClaims()
+    setClaimData(claims.map((claim) => ({
+      id: claim.id,
+      name: 'Claim',
+      symbol: '',
+      logo: '/static/images/placeholders/logo/polygon.png',
+      value: '',
+      amount: 'Mortgage'
+    })))
+  }
+
+  useEffect(() => {
+    getData()
+  }, [])
+
 
   const handleCreateClaim = () => {
     router.push('/claims/create');
