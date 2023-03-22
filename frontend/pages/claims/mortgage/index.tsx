@@ -11,7 +11,6 @@ import { API_CALLBACK_URL } from '@/config';
 
 import RecentClaims from '@/content/claims/mortgage/RecentClaims';
 import UploadDataModal from '@/components/UploadDataModal';
-import Button from '@mui/material/Button';
 import { createClaim } from '@/api/backend';
 
 function MortgageTransactions() {
@@ -89,7 +88,6 @@ function MortgageTransactions() {
           </Grid>
         </Grid>
       </Container>
-      <Button onClick={() => setOpenModal(true)}>Open Modal</Button>
       <UploadDataModal open={openModal} handleClose={handleClose} />
     </>
   );
