@@ -27,6 +27,7 @@ import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
 import { User } from '@/context';
 import { createClaimOffer } from '@/api/backend';
+import { formatAddress } from '@/utils';
 
 const StyledPlayIcon = styled(PlayArrowIcon)(
   () => `
@@ -171,13 +172,6 @@ const RecentValidateTable: FC<RecentOrdersTableProps> = ({ claims }) => {
   const handleRunValidation = (claimId: string) => {
     handleOpenModal();
     setSelectedClaimId(claimId);
-  };
-
-  const formatAddress = (address: string): string => {
-    return `${address.substring(0, 6)}...${address.substring(
-      address.length - 4,
-      address.length
-    )}`;
   };
 
   return (
