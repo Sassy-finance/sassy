@@ -271,7 +271,7 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.orderID}
+                      {cryptoOrder.amount}
                     </Typography>
                   </TableCell>
                   <TableCell>
@@ -282,7 +282,7 @@ const RecentOffersTable: FC<RecentOffersTableProps> = ({ cryptoOrders }) => {
                       gutterBottom
                       noWrap
                     >
-                      {cryptoOrder.sourceName}
+                      {cryptoOrder.amountCrypto}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
