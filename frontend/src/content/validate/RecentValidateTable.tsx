@@ -25,7 +25,7 @@ import Label from '@/components/Label';
 import { CryptoOrder, CryptoOrderStatus } from '@/models/crypto_order';
 import BulkActions from './BulkActions';
 import RunValidateModal from './RunValidateModal';
-import { User } from '@/context';
+import { User } from '../../contexts';
 import { createClaimOffer } from '@/api/backend';
 import { formatAddress } from '@/utils';
 
