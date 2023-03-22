@@ -1,0 +1,29 @@
+{
+    "@context": [
+        {
+            "@version": 1.1,
+            "@protected": true,
+            "id": "@id",
+            "type": "@type",
+            "ProofOfFunds": {
+                "@id": "https://raw.githubusercontent.com/Sassy-finance/sassy/main/backend/schema/proof-of-funds.jsonld#ProofOfFunds",
+                "@context": {
+                    "@version": 1.1,
+                    "@protected": true,
+                    "id": "@id",
+                    "type": "@type",
+                    "vocab": "https://raw.githubusercontent.com/Sassy-finance/sassy/main/backend/schema/proof-of-funds.md#",
+                    "xsd": "http://www.w3.org/2001/XMLSchema#",
+                    "collateral": {
+                        "@id": "vocab:collateral",
+                        "@type": "xsd:integer"
+                    },
+                    "liabilities": {
+                        "@id": "vocab:liabilities",
+                        "@type": "xsd:integer"
+                    }
+                }
+            }
+        }
+    ]
+}
