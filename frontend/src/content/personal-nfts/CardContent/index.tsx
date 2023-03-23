@@ -7,6 +7,8 @@ const CardTitle = styled(Typography)(
     margin-top: 1rem;
     color: #da18a2;
     text-align: center;
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
   `
 );
 
