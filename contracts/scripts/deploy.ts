@@ -1,18 +1,35 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
 
-  const lockedAmount = ethers.utils.parseEther("0.001");
+  const spongePoseidonLib = "0x12d8C87A61dAa6DD31d8196187cFa37d1C647153";
+  const poseidon6Lib = "0xb588b8f07012Dc958aa90EFc7d3CF943057F17d7";
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
 
-  await lock.deployed();
+  const ClaimableNFT = await ethers.getContractFactory("ClaimableNFT", {
+    libraries: {
+      SpongePoseidon: spongePoseidonLib,
+      PoseidonUnit6L: poseidon6Lib
+    },
+  });
+  
+  const tierA = await ClaimableNFT.deploy("TIERA", "TIERA", 1000000);
+  const tierB = await ClaimableNFT.deploy("TIERA", "TIERA", 800000);
+  const tierC = await ClaimableNFT.deploy("TIERA", "TIERA", 60000);
+
+
+  await tierA.deployed();
 
   console.log(
-    `Lock with ${ethers.utils.formatEther(lockedAmount)}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    `TierA with deployed to ${tierA.address}`
+  );
+
+  console.log(
+    `TierB  deployed to ${tierB.address}`
+  );
+
+  console.log(
+    `TierC deployed to ${tierC.address}`
   );
 }
 
