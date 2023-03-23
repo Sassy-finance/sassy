@@ -1,6 +1,7 @@
 import { Typography, Button, Grid } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { FC } from 'react';
+import Image from 'next/image';
 
 interface PageHeaderProps {
   getHistoricalTransactions?: () => {};
@@ -39,6 +40,8 @@ const PageHeader: FC<PageHeaderProps> = ({ getHistoricalTransactions, uploadToIP
           startIcon={<AddTwoToneIcon fontSize="small" />}
           onClick={uploadToIPFS}
         >
+          <Image src={'/filecoin-logo.png'} alt="filecoin" width={20} height={20} />
+          &nbsp;
           Upload to Filecoin
         </Button>
       </Grid>
