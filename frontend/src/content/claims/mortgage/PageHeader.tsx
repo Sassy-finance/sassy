@@ -40,7 +40,7 @@ const PageHeader: FC<PageHeaderProps> = ({ getHistoricalTransactions, uploadToIP
           startIcon={<AddTwoToneIcon fontSize="small" />}
           onClick={uploadToIPFS}
         >
-          <Image src={'/filecoin-logo.png'} alt="filecoin" width={20} height={20} />
+          <Image src={'/filecoin-logo.png'} alt="filecoin" width={20} height={20} unoptimized={true} />
           &nbsp;
           Upload to Filecoin
         </Button>
