@@ -14,6 +14,10 @@ const redirects = {
 
 module.exports = {
   withImages: withImages(redirects),
+  images: {
+    loader: 'akamai',
+    path: '',
+  },
   typescript: {
     ignoreBuildErrors: true,
   }
