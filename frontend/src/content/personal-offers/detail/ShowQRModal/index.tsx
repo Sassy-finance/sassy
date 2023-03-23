@@ -51,17 +51,17 @@ const StyledBox = styled(Box)(
 
 const mockData = {
   "body": {
-    "credentials": [
-      {
-        "description": "https://raw.githubusercontent.com/iden3/claim-schema-vocab/main/schemas/json-ld/kyc-v3.json-ld#KYCAgeCredential",
-        "id": "620575f3-c821-11ed-9aa2-0242ac180005"
-      }
-    ],
-    "url": "https://api.dants.xyz/v1/agent"
+      "credentials": [
+          {
+              "description": "https://raw.githubusercontent.com/Sassy-finance/sassy/main/backend/schema/proof-of-funds.jsonld#ProofOfFunds",
+              "id": "37670a12-c8e5-11ed-9aa2-0242ac180005"
+          }
+      ],
+      "url": "https://api.dants.xyz/v1/agent"
   },
   "from": "did:polygonid:polygon:mumbai:2qPPaGmb6u6w8fkMPRXyUAKs69Ng4Tr4bjDirtV3QY",
-  "id": "04378039-16f9-477a-a272-fce9c58e42ee",
-  "thid": "04378039-16f9-477a-a272-fce9c58e42ee",
+  "id": "f2440078-940a-41f9-9e95-4544cdd3eb2b",
+  "thid": "f2440078-940a-41f9-9e95-4544cdd3eb2b",
   "to": "did:polygonid:polygon:mumbai:2qGaWnwjeASE17q29YhrGe1Kan64PYUCwLLi3CQxPD",
   "typ": "application/iden3comm-plain-json",
   "type": "https://iden3-communication.io/credentials/1.0/offer"

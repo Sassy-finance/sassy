@@ -30,7 +30,7 @@ export const getJobResult = async (jobId: string) => {
         `bacalhau get ${jobId} --output-dir results`
     ) as any
 
-    const jsonString = fs.readFileSync("./results/combined_results/outputs/result.json");
+    const jsonString = fs.readFileSync("./results/outputs/result.json");
 
     const jsonResult = JSON.parse(jsonString.toString());
 
