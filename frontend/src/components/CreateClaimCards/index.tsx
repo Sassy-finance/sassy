@@ -89,6 +89,7 @@ function MyCards() {
                   style={{
                     borderRadius: '3rem',
                   }}
+                  unoptimized={true}
                 />
               </Box>
             </CardCc>
@@ -115,6 +116,7 @@ function MyCards() {
                   style={{
                     borderRadius: '3rem',
                   }}
+                  unoptimized={true}
                 />
               </Box>
             </CardCc>
@@ -142,6 +144,7 @@ function MyCards() {
                     borderRadius: '3rem',
                     margin: '1rem 0',
                   }}
+                  unoptimized={true}
                 />
               </Box>
             </CardCc>

@@ -37,7 +37,14 @@ function OffersCardContent({
             <Typography variant="subtitle2" noWrap style={{ display: 'flex', alignItems: 'center' }}>
               {amount}
               &nbsp;
-              <Image src={'/borrowing-item.jpg'} alt="mortgage" width={26} height={26} style={{ borderRadius: '50%' }} />
+              <Image
+                src={'/borrowing-item.jpg'}
+                alt="mortgage"
+                width={26}
+                height={26}
+                style={{ borderRadius: '50%' }}
+                unoptimized={true}  
+              />
             </Typography>
           </Box>
         </Box>
