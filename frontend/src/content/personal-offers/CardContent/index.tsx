@@ -1,9 +1,6 @@
 import { AvatarWrapper } from '@/styles/index.styles';
-import {
-    Box,
-    CardContent,
-    Typography,
-} from '@mui/material';
+import { Box, CardContent, Typography } from '@mui/material';
+import Image from 'next/image';
 
 interface OffersCardContentProps {
   name: string;
@@ -36,9 +33,13 @@ function OffersCardContent({
           <Typography variant="h3" gutterBottom noWrap>
             {value}
           </Typography>
-          <Typography variant="subtitle2" noWrap>
-            {amount}
-          </Typography>
+          <Box>
+            <Typography variant="subtitle2" noWrap style={{ display: 'flex', alignItems: 'center' }}>
+              {amount}
+              &nbsp;
+              <Image src={'/borrowing-item.jpg'} alt="mortgage" width={26} height={26} style={{ borderRadius: '50%' }} />
+            </Typography>
+          </Box>
         </Box>
       </CardContent>
     </>
