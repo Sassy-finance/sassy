@@ -1,19 +1,12 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  TextField
-} from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useState } from 'react';
 import type { ReactElement } from 'react';
 
 import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
 import NFTsCardContent from '@/content/personal-nfts/CardContent';
-import { useRouter } from 'next/router';
 import ShowQRModal from '@/content/personal-nfts/CardContent/ShowQRModal';
+import MintNFTModal from '@/content/personal-nfts/MintNFTModal';
 
 const claimsData = [
   {
@@ -48,16 +41,23 @@ interface FormInput {
 }
 
 function Overview() {
-  const router = useRouter();
   const [formInput, setFormInput] = useState<FormInput>({
     notional: '',
-    rate: '',
+    rate: ''
   });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
   const [openQRModal, setOpenQRModal] = useState<boolean>(false);
+  const [mintNFTModal, setMintNFTModal] = useState<boolean>(false);
 
   const handleOpenQRModal = () => setOpenQRModal(true);
   const handleCloseQRModal = () => setOpenQRModal(false);
+
+  const handleOpenMintNFTModal = () => setMintNFTModal(true);
+  const handleCloseMintNFTModal = () => setMintNFTModal(false);
+
+  const handleClickBtn = () => {
+    handleOpenMintNFTModal();
+  };
 
   const handleCardSelection = (id: string) => {
     if (selectedCard === id) {
@@ -72,6 +72,8 @@ function Overview() {
     const { name, value } = event.target;
     setFormInput({ ...formInput, [name]: value });
   };
+
+  const handleMintSubmit = () => {};
 
   return (
     <>
@@ -91,54 +93,25 @@ function Overview() {
               data={claimsData}
               details
               createBtnText="Mint NFT"
-              handleClickBtn={() => router.push("/claims/create")}
+              handleClickBtn={handleClickBtn}
               displayCardContent={(cardProps: any) => (
                 <NFTsCardContent {...cardProps} />
               )}
               selectedCard={selectedCard}
               handleCardSelection={handleCardSelection}
             />
-            <Card style={{ marginTop: '2rem' }}>
-              <CardContent>
-                <Box
-                  component="form"
-                  sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <Grid container spacing={3} paddingRight="1rem">
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        id="outlined-search"
-                        label="Notional"
-                        type="search"
-                        name='notional'
-                        value={formInput.notional}
-                        onChange={handleInputChange}
-                        style={{ width: '100%' }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        id="outlined-search"
-                        label="Rate"
-                        type="search"
-                        name='rate'
-                        value={formInput.rate}
-                        onChange={handleInputChange}
-                        style={{ width: '100%' }}
-                      />
-                    </Grid>
-                  </Grid>
-                </Box>
-              </CardContent>
-            </Card>
           </Grid>
         </Grid>
       </Container>
       <ShowQRModal open={openQRModal} handleClose={handleCloseQRModal} />
+      <MintNFTModal
+        open={mintNFTModal}
+        handleClose={handleCloseMintNFTModal}
+        notionalValue={formInput.notional}
+        rateValue={formInput.rate}
+        handleInputChange={handleInputChange}
+        handleSubmit={handleMintSubmit}
+      />
     </>
   );
 }
