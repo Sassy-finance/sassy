@@ -10,9 +10,6 @@ import {
 interface ShowQRModal {
   open: boolean;
   handleClose: () => void;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleSubmit: () => void;
-  tier: string;
 }
 
 const ContentModal = styled(Container)(
@@ -84,8 +81,6 @@ const tierData = {
 function ShowQRModal({
   open,
   handleClose,
-  handleInputChange,
-  tier
 }: ShowQRModal) {
   return (
     <>

@@ -13,6 +13,7 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import Cards from '@/components/Cards';
 import NFTsCardContent from '@/content/personal-nfts/CardContent';
 import { useRouter } from 'next/router';
+import ShowQRModal from '@/content/personal-nfts/CardContent/ShowQRModal';
 
 const claimsData = [
   {
@@ -53,12 +54,17 @@ function Overview() {
     rate: '',
   });
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [openQRModal, setOpenQRModal] = useState<boolean>(false);
+
+  const handleOpenQRModal = () => setOpenQRModal(true);
+  const handleCloseQRModal = () => setOpenQRModal(false);
 
   const handleCardSelection = (id: string) => {
     if (selectedCard === id) {
       setSelectedCard(null);
     } else {
       setSelectedCard(id);
+      handleOpenQRModal();
     }
   };
 
@@ -132,6 +138,7 @@ function Overview() {
           </Grid>
         </Grid>
       </Container>
+      <ShowQRModal open={openQRModal} handleClose={handleCloseQRModal} />
     </>
   );
 }
