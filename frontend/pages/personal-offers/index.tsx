@@ -21,7 +21,7 @@ function PersonalClaimOffers() {
       symbol: '',
       logo: '/static/images/placeholders/logo/polygon.png',
       value: '',
-      amount: 'Mortgage'
+      amount: 'Borrowing'
     })))
   }
 

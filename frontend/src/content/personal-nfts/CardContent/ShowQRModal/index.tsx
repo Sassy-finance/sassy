@@ -89,7 +89,7 @@ function ShowQRModal({
           <CenterContent>
             <StyledBox>
               <Typography variant="h3" textAlign="center" sx={{ mb: '1rem' }}>
-                {"Your Claim Offer"}
+                {"Grant access"}
               </Typography>
             </StyledBox>
             <QRcode value={tierData} title={"QR"} />

@@ -9,6 +9,11 @@ import {
   Grid
 } from '@mui/material';
 
+import { useContext, useState } from 'react';
+import { User } from '../../../contexts';
+import ClaimableNFT from '../../../artifacts/ClaimableNFT.json';
+import { ethers } from 'ethers';
+
 const ContentModal = styled(Container)(
   ({ theme }) => `
           position: absolute;
@@ -57,6 +62,40 @@ function MintNFTModal({
   handleInputChange,
   handleSubmit
 }: MintNFTModalProps) {
+
+  const { signerObj } = useContext(User)
+  const [state, setState] = useState({
+    notional: '',
+    rate: ''
+  })
+
+  const claimableNFT = new ethers.ContractFactory(
+    ClaimableNFT.abi,
+    ClaimableNFT.bytecode,
+    signerObj
+  );
+
+  const claimableNFTInstace = claimableNFT.attach('0xE49D9dDaD8A2B1E68BedfB1A7f2Ea3AbF4e53552')
+
+  const handleInputModalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    });
+
+    console.log({ state })
+  };
+
+  const mint = async () => {
+    await claimableNFTInstace.connect(signerObj).safeMint(
+      {
+        notional: state['notional'],
+        rate: state['rate']
+      }
+    )
+  }
+
+
   return (
     <>
       <Modal open={open} onClose={handleClose}>
@@ -73,8 +112,8 @@ function MintNFTModal({
                     label="Notional"
                     type="search"
                     name="notional"
-                    value={notionalValue}
-                    onChange={handleInputChange}
+                    value={state['notional']}
+                    onChange={handleInputModalChange}
                     style={{ width: '100%' }}
                   />
                 </Grid>
@@ -84,14 +123,14 @@ function MintNFTModal({
                     label="Rate"
                     type="search"
                     name="rate"
-                    value={rateValue}
-                    onChange={handleInputChange}
+                    value={state['rate']}
+                    onChange={handleInputModalChange}
                     style={{ width: '100%' }}
                   />
                 </Grid>
               </Grid>
             </StyledBox>
-            <Button onClick={handleSubmit}>Mint</Button>
+            <Button onClick={mint}>Mint</Button>
           </CenterContent>
         </ContentModal>
       </Modal>

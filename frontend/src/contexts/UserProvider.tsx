@@ -17,6 +17,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [provider, setProvider] = useState<any>(undefined);
   const [signer, setSigner] = useState<any>();
+  const [signerObj, setSignerObj] = useState<any>();
 
   const loginMetamask = async () => {
     if (!window.ethereum) {
@@ -29,6 +30,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         setProvider(provider);
         const signer = await (await provider.getSigner()).getAddress();
+        const signerObj = await provider.getSigner();
+        setSignerObj(signerObj)
         setSigner(signer);
         setIsLogged(true);
       } catch (error) {
@@ -43,7 +46,8 @@ const UserProvider = ({ children }: UserProviderProps) => {
         isLogged,
         loginMetamask,
         provider,
-        signer
+        signer,
+        signerObj
       }}
     >
       {children}

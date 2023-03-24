@@ -5,4 +5,5 @@ export const User = createContext({
     loginMetamask: () => {},
     provider: undefined,
     signer: undefined,
+    signerObj: undefined
 });
