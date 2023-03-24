@@ -11,6 +11,7 @@ import {
   Tooltip,
   CardActionArea,
   styled,
+  Container
 } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
@@ -75,6 +76,8 @@ interface CardsProps {
   displayCardContent: (props: any) => JSX.Element;
   selectedCard?: string | null;
   handleCardSelection?: (id: string) => void;
+  color?: string;
+  nftCard?: boolean;
 }
 
 function Cards({
@@ -90,16 +93,21 @@ function Cards({
   displayCardContent,
   selectedCard,
   handleCardSelection,
+  color,
+  nftCard
 }: CardsProps) {
   const router = useRouter();
 
-  const DisplayCard = (cardProps: any) =>
+  const DisplayCard = (cardProps: any) => 
     details ? (
       <StyledCard
         sx={{
           px: 1,
-          border: selectedCard === cardProps.id ? '1px solid #223354' : 'none',
-         }}
+          border:
+            selectedCard === cardProps.id
+              ? `${nftCard ? '3px' : '1px'} solid ${color ? color : '#223354'}`
+              : 'none',
+        }}
         onClick={() => {
           if (detailsRedirectLink) {
             return router.push(`${detailsRedirectLink}/${cardProps.id}`);
@@ -112,9 +120,7 @@ function Cards({
         {displayCardContent(cardProps)}
       </StyledCard>
     ) : (
-      <Card sx={{ px: 1 }}>
-        {displayCardContent(cardProps)}
-      </Card>
+      <Card sx={{ px: 1 }}>{displayCardContent(cardProps)}</Card>
     );
 
   const AddCard = () => (
@@ -133,43 +139,95 @@ function Cards({
 
   return (
     <>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{
-          pb: 3
-        }}
-      >
-        <Box display="flex" alignItems="center">
-          <Typography variant="h3" sx={{ mr: '1rem' }}>
-            {title}
-          </Typography>
-          <Typography variant="subtitle2">{subtitle}</Typography>
-        </Box>
-        {createBtnText && (
-          <Button
-            size="small"
-            variant="outlined"
-            startIcon={<AddTwoToneIcon fontSize="small" />}
-            onClick={handleClickBtn}
+      {nftCard ? (
+        <Container
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{
+              pb: 3,
+              width: '80%'
+            }}
           >
-            {createBtnText}
-          </Button>
-        )}
-      </Box>
-      <Grid container spacing={3} style={{ justifyContent: 'center' }}>
-        {data.map(({ id, ...item }) => (
-          <Grid key={id} xs={12} sm={6} md={3} item>
-            <DisplayCard id={id} {...item} />
+            <Box display="flex" alignItems="center">
+              <Typography variant="h3" sx={{ mr: '1rem' }}>
+                {title}
+              </Typography>
+              <Typography variant="subtitle2">{subtitle}</Typography>
+            </Box>
+            {createBtnText && (
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<AddTwoToneIcon fontSize="small" />}
+                onClick={handleClickBtn}
+              >
+                {createBtnText}
+              </Button>
+            )}
+          </Box>
+          <Grid container spacing={3} style={{ justifyContent: 'center' }}>
+            {data.map(({ id, ...item }) => (
+              <Grid key={id} xs={12} sm={6} md={3} item>
+                <DisplayCard id={id} {...item} />
+              </Grid>
+            ))}
+            {handleAddCardClick && (
+              <Grid xs={12} sm={6} md={3} item>
+                <AddCard />
+              </Grid>
+            )}
           </Grid>
-        ))}
-        {handleAddCardClick && (
-          <Grid xs={12} sm={6} md={3} item>
-            <AddCard />
+        </Container>
+      ) : (
+        <>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            sx={{
+              pb: 3
+            }}
+          >
+            <Box display="flex" alignItems="center">
+              <Typography variant="h3" sx={{ mr: '1rem' }}>
+                {title}
+              </Typography>
+              <Typography variant="subtitle2">{subtitle}</Typography>
+            </Box>
+            {createBtnText && (
+              <Button
+                size="small"
+                variant="outlined"
+                startIcon={<AddTwoToneIcon fontSize="small" />}
+                onClick={handleClickBtn}
+              >
+                {createBtnText}
+              </Button>
+            )}
+          </Box>
+          <Grid container spacing={3} style={{ justifyContent: 'center' }}>
+            {data.map(({ id, ...item }) => (
+              <Grid key={id} xs={12} sm={6} md={3} item>
+                <DisplayCard id={id} {...item} />
+              </Grid>
+            ))}
+            {handleAddCardClick && (
+              <Grid xs={12} sm={6} md={3} item>
+                <AddCard />
+              </Grid>
+            )}
           </Grid>
-        )}
-      </Grid>
+        </>
+      )}
     </>
   );
 }

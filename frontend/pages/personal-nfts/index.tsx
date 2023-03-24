@@ -10,28 +10,22 @@ import MintNFTModal from '@/content/personal-nfts/MintNFTModal';
 
 const claimsData = [
   {
-    id: 'btc',
+    id: 'tier-a',
     name: 'Tier A',
-    symbol: 'BTC',
-    logo: '/static/images/placeholders/logo/bitcoin.png',
-    value: '$100,000,000',
-    amount: '$150,000'
+    value: '$500',
+    amount: '$1,000',
   },
   {
-    id: 'xrp',
+    id: 'tier-b',
     name: 'Tier B',
-    symbol: 'XRP',
-    logo: '/static/images/placeholders/logo/ripple.png',
-    value: '$800,000',
-    amount: '$250,000'
+    value: '$2,500',
+    amount: '$5,000',
   },
   {
-    id: 'ada',
+    id: 'tier-c',
     name: 'Tier C',
-    symbol: 'ADA',
-    logo: '/static/images/placeholders/logo/cardano.png',
-    value: '$600,000',
-    amount: '$300,000'
+    value: '$7,000',
+    amount: '$15,000',
   }
 ];
 
@@ -86,10 +80,9 @@ function Overview() {
           spacing={4}
           marginBottom="1rem"
         >
-          <Grid item lg={8} xs={12}>
+          <Grid item lg={12} xs={12}>
             <Cards
-              title="Claims"
-              subtitle="Select your Tier"
+              title="Proof Your Eligibility"
               data={claimsData}
               details
               createBtnText="Mint NFT"
@@ -99,6 +92,8 @@ function Overview() {
               )}
               selectedCard={selectedCard}
               handleCardSelection={handleCardSelection}
+              color="#da18a2"
+              nftCard
             />
           </Grid>
         </Grid>

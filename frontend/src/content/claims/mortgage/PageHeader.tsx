@@ -27,7 +27,7 @@ const PageHeader: FC<PageHeaderProps> = ({ getHistoricalTransactions, uploadToIP
       </Grid>
       <Grid item>
         <Button
-          sx={{ mt: { xs: 2, md: 0 } }}
+          sx={{ mt: { xs: 2, md: 0 }, mr: 2 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
           onClick={getHistoricalTransactions}
@@ -36,8 +36,7 @@ const PageHeader: FC<PageHeaderProps> = ({ getHistoricalTransactions, uploadToIP
         </Button>
         <Button
           sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
+          variant="outlined"
           onClick={uploadToIPFS}
         >
           <Image src={'/filecoin-logo.png'} alt="filecoin" width={20} height={20} unoptimized={true} />
